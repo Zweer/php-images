@@ -100,17 +100,14 @@ abstract class ImageAbstract implements ImageInterface
      * @abstract
      *
      * @param string $filename
-     * @param string $format
      *
      * @throws \InvalidArgumentException
      */
-    public function initFromPath($filename, &$format = null)
+    public function initFromPath($filename)
     {
         if (!static::isImagePath($filename)) {
             throw new \InvalidArgumentException('The $filename provided is not a valid one: ' . var_dump($filename));
         }
-
-        $format = substr(strrchr($filename, '.'), 1);
     }
 
     /**
