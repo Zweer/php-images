@@ -83,6 +83,8 @@ class Image extends ImageAbstract
             default:
                 throw new \InvalidArgumentException('The image provided is not of a supported format: ' . var_dump($info));
         }
+
+        $this->_filename = $filename;
     }
 
     /**
