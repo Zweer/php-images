@@ -87,6 +87,27 @@ interface ImageInterface
     public function parseColor($color);
 
     /**
+     * Retrieves the width of the image
+     *
+     * @return int
+     */
+    public function getWidth();
+
+    /**
+     * Retrieves the height of the image
+     *
+     * @return int
+     */
+    public function getHeight();
+
+    /**
+     * Retrieves the orientation of the image
+     *
+     * @return string
+     */
+    public function getOrientation();
+
+    /**
      * Parses the alpha
      * Parses the alpha and converts it into a valid value for the libraries.
      * Normally it converts [0-1] into [0-127].

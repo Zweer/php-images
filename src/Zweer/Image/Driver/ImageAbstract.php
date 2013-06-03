@@ -2,6 +2,8 @@
 
 namespace Zweer\Image\Driver;
 
+use Zweer\Image\Image;
+
 abstract class ImageAbstract implements ImageInterface
 {
     /**
@@ -278,6 +280,22 @@ abstract class ImageAbstract implements ImageInterface
         }
 
         return null;
+    }
+
+    /**
+     * Retrieves the orientation of the image
+     *
+     * @return string
+     */
+    public function getOrientation()
+    {
+        if ($this->getWidth() > $this->getHeight()) {
+            return Image::ORIENTATION_LANDSCAPE;
+        } elseif ($this->getWidth() < $this->getHeight()) {
+            return Image::ORIENTATION_PORTRAIT;
+        } else {
+            return Image::ORIENTATION_SQUARE;
+        }
     }
 
     /**

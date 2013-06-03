@@ -166,6 +166,26 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Retrieves the width of the image
+     *
+     * @return int
+     */
+    public function getWidth()
+    {
+        return imagesx($this->_resource);
+    }
+
+    /**
+     * Retrieves the height of the image
+     *
+     * @return int
+     */
+    public function getHeight()
+    {
+        return imagesy($this->_resource);
+    }
+
+    /**
      * The parameter is an image identifier?
      * Uses the abstract function to understand if the argument is a resource
      * and then states if it's a gd resource
