@@ -8,10 +8,6 @@ class Image
     const ORIENTATION_PORTRAIT  = 'portrait';
     const ORIENTATION_SQUARE    = 'square';
 
-    const FORMAT_GIF            = 'gif';
-    const FORMAT_JPEG           = 'jpeg';
-    const FORMAT_PNG            = 'png';
-
     const LIBRARY_GD            = 'gd';
     const LIBRARY_GMAGICK       = 'gmagick';
     const LIBRARY_IMAGICK       = 'imagick';
