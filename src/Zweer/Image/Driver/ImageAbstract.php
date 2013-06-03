@@ -70,11 +70,11 @@ abstract class ImageAbstract implements ImageInterface
 
     /**
      * Initializes the image from a binary string
-     * It only checks if the argument is a valid binary string
+     * It only checks if the argument is a valid binary string.
      *
      * @abstract
      *
-     * @param $binary
+     * @param string $binary
      *
      * @throws \InvalidArgumentException
      */
@@ -82,6 +82,23 @@ abstract class ImageAbstract implements ImageInterface
     {
         if (!static::isImageBinary($binary)) {
             throw new \InvalidArgumentException('The $binary provided is not a valid one: ' . var_dump($binary));
+        }
+    }
+
+    /**
+     * Initializes the image from a path
+     * It only checks if the argument is a valid filename.
+     *
+     * @abstract
+     *
+     * @param string $filename
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function initFromPath($filename)
+    {
+        if (!static::isImagePath($filename)) {
+            throw new \InvalidArgumentException('The $filename provided is not a valid one: ' . var_dump($filename));
         }
     }
 

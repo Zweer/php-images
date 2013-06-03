@@ -44,7 +44,42 @@ class Image extends ImageAbstract
     public function initFromBinary($binary)
     {
         parent::initFromBinary($binary);
+
         $this->_resource = imagecreatefromstring($binary);
+    }
+
+    /**
+     * Initializes the image from a path
+     * It uses the abstract method to check if the argument is a valid image path.
+     *
+     * @abstract
+     *
+     * @param string $filename
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function initFromPath($filename)
+    {
+        parent::initFromPath($filename);
+
+        $info = getimagesize($filename);
+
+        switch ($info[2]) {
+            case IMG_PNG:
+                $this->_resource = imagecreatefrompng($filename);
+                break;
+
+            case IMG_JPG:
+                $this->_resource = imagecreatefromjpeg($filename);
+                break;
+
+            case IMG_GIF:
+                $this->_resource = imagecreatefromgif($filename);
+                break;
+
+            default:
+                throw new \InvalidArgumentException('The image provided is not of a supported format: ' . var_dump($info));
+        }
     }
 
     /**

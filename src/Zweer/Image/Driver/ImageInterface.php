@@ -48,11 +48,21 @@ interface ImageInterface
      *
      * @abstract
      *
-     * @param $binary
+     * @param string $binary
      *
      * @throws \InvalidArgumentException
      */
     public function initFromBinary($binary);
+
+    /**
+     * Initializes the image from a path
+     *
+     * @abstract
+     *
+     * @param string $filename
+     *
+     * @throws \InvalidArgumentException
+     */
     public function initFromPath($filename);
 
     public function parseColor($color);
