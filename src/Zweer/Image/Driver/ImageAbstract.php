@@ -69,6 +69,23 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Initializes the image from a binary string
+     * It only checks if the argument is a valid binary string
+     *
+     * @abstract
+     *
+     * @param $binary
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function initFromBinary($binary)
+    {
+        if (!static::isImageBinary($binary)) {
+            throw new \InvalidArgumentException('The $binary provided is not a valid one: ' . var_dump($binary));
+        }
+    }
+
+    /**
      * Color parser
      * This method does nothing but parsing the rgba integers to facilitate
      * what the library-dependant function will do.

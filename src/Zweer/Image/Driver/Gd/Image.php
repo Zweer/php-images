@@ -32,6 +32,22 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Initializes the image from a binary string
+     * It uses the abstract method to check if the argument is a valid binary string.
+     *
+     * @abstract
+     *
+     * @param $binary
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function initFromBinary($binary)
+    {
+        parent::initFromBinary($binary);
+        $this->_resource = imagecreatefromstring($binary);
+    }
+
+    /**
      * Color parser
      * Use the abstract function to parse the rgba value and then allocates
      * the color in the image.
@@ -65,20 +81,5 @@ class Image extends ImageAbstract
     public static function isImageResource($resource)
     {
         return parent::isImageResource($resource) && get_resource_type($resource) == 'gd';
-    }
-
-    public function initFromResource($resource)
-    {
-        // TODO: Implement initFromResource() method.
-    }
-
-    public function initFromBinary($binary)
-    {
-        // TODO: Implement initFromBinary() method.
-    }
-
-    public function initFromPath($filename)
-    {
-        // TODO: Implement initFromPath() method.
     }
 }
