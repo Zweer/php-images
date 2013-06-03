@@ -46,8 +46,6 @@ interface ImageInterface
     /**
      * Initializes the image from a binary string
      *
-     * @abstract
-     *
      * @param string $binary
      *
      * @throws \InvalidArgumentException
@@ -57,13 +55,25 @@ interface ImageInterface
     /**
      * Initializes the image from a path
      *
-     * @abstract
-     *
      * @param string $filename
      *
      * @throws \InvalidArgumentException
      */
     public function initFromPath($filename);
+
+    /**
+     * Saves the current image
+     * If the filename is not specified it takes the original filename (if one).
+     * With PNGs and JPEGs the quality attribute states the image quality.
+     *
+     * @param string $filename
+     * @param int    $quality
+     *
+     * @return ImageInterface
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function save($filename = null, $quality = null);
 
     /**
      * Color parser

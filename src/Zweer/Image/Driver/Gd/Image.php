@@ -3,6 +3,7 @@
 namespace Zweer\Image\Driver\Gd;
 
 use Zweer\Image\Driver\ImageAbstract;
+use Zweer\Image\Driver\ImageInterface;
 
 class Image extends ImageAbstract
 {
@@ -85,6 +86,61 @@ class Image extends ImageAbstract
         }
 
         $this->_filename = $filename;
+    }
+
+    /**
+     * Saves the current image
+     * If the filename is not specified it takes the original filename (if one).
+     * With PNGs and JPEGs the quality attribute states the image quality.
+     * It uses the abstract method to know if the filename is set.
+     *
+     * @param string $filename
+     * @param int    $quality
+     *
+     * @return ImageInterface
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function save($filename = null, $quality = null)
+    {
+        parent::save($filename, $quality);
+
+        if (is_null($filename)) {
+            $filename = $this->_filename;
+        }
+
+        $format = substr(strrchr($filename, '.'), 1);
+        switch ($format) {
+            case 'png':
+                if (is_null($quality)) {
+                    $quality = 9;
+                }
+
+                $result = imagepng($this->_resource, $filename, min(9, max(0, $quality)));
+                break;
+
+            case 'jpg':
+            case 'jpeg':
+                if (is_null($quality)) {
+                    $quality = 85;
+                }
+
+                $result = imagejpeg($this->_resource, $filename, min(100, max(0, $quality)));
+                break;
+
+            case 'gif':
+                $result = imagegif($this->_resource, $filename);
+                break;
+
+            default:
+                throw new \InvalidArgumentException('The format specified is not supported: ' . $format);
+        }
+
+        if (!$result) {
+            throw new \Exception('unable to save the image: ' . $filename);
+        }
+
+        return $this;
     }
 
     /**

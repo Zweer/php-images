@@ -116,6 +116,26 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Saves the current image
+     * It only checks if the filename is set.
+     *
+     * @abstract
+     *
+     * @param string $filename
+     * @param int    $quality
+     *
+     * @return ImageInterface
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function save($filename = null, $quality = null)
+    {
+        if (is_null($filename) && !isset($this->_filename)) {
+            throw new \Exception('To save a file you must provide a valid $filename');
+        }
+    }
+
+    /**
      * Color parser
      * This method does nothing but parsing the rgba integers to facilitate
      * what the library-dependant function will do.
