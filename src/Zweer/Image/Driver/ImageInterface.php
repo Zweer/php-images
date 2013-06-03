@@ -65,6 +65,15 @@ interface ImageInterface
      */
     public function initFromPath($filename);
 
+    /**
+     * Color parser
+     * Allocates the color in the image.
+     *
+     * @param array|string $color The color to parse
+     *
+     * @return null
+     * @throws \InvalidArgumentException
+     */
     public function parseColor($color);
 
     /**
