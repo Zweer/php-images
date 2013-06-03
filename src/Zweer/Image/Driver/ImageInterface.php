@@ -22,16 +22,6 @@ interface ImageInterface
      */
     public function __construct($filename = null, $width = null, $height = null, $bgColor = null);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Initializes an empty image
-    |--------------------------------------------------------------------------
-    |
-    | If the $height is not specified, the image is squared.
-    | If the $bgColor is not specified, the image is filled with a transparent
-    | layer.
-    |
-    */
     /**
      * Initializes an empty image
      * If the $height is not specified, the image is squared.
@@ -43,6 +33,14 @@ interface ImageInterface
      * @param array|string $bgColor The color to use for the background of the image
      */
     public function initEmpty(&$width, &$height = null, &$bgColor = null);
+
+    /**
+     * Initializes the image from a resource
+     *
+     * @param resource $resource
+     *
+     * @throws \InvalidArgumentException
+     */
     public function initFromResource($resource);
     public function initFromBinary($binary);
     public function initFromPath($filename);

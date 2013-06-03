@@ -53,6 +53,22 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Initializes the image from a resource
+     *
+     * @param resource $resource
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function initFromResource($resource)
+    {
+        if (!static::isImageResource($resource)) {
+            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($resource));
+        }
+
+        $this->_resource = $resource;
+    }
+
+    /**
      * Color parser
      * This method does nothing but parsing the rgba integers to facilitate
      * what the library-dependant function will do.
