@@ -42,6 +42,16 @@ interface ImageInterface
      * @throws \InvalidArgumentException
      */
     public function initFromResource($resource);
+
+    /**
+     * Initializes the image from a binary string
+     *
+     * @abstract
+     *
+     * @param $binary
+     *
+     * @throws \InvalidArgumentException
+     */
     public function initFromBinary($binary);
     public function initFromPath($filename);
 
