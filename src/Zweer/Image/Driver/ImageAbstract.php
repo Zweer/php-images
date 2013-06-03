@@ -15,6 +15,11 @@ abstract class ImageAbstract implements ImageInterface
     protected $_format;
 
     /**
+     * @var string
+     */
+    protected $_filename;
+
+    /**
      * The constructor
      * If the filename is set does one of the following
      * (depending on the filename):
