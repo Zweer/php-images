@@ -4,7 +4,15 @@ namespace Zweer\Image\Driver;
 
 abstract class ImageAbstract implements ImageInterface
 {
+    /**
+     * @var resource
+     */
     protected $_resource;
+
+    /**
+     * @var int
+     */
+    protected $_format;
 
     /**
      * The constructor
