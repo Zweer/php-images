@@ -25,11 +25,10 @@ class Image extends ImageAbstract
         if (is_null($bgColor)) {
             $bgColor = imagecolorallocatealpha($this->_resource, 0, 0, 0, 127);
         } else {
-
+            $bgColor = $this->parseColor($bgColor);
         }
 
         imagefill($this->_resource, 0, 0, $bgColor);
-
     }
 
     /**
