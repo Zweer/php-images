@@ -14,7 +14,7 @@ class ImageAbstractTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Image::ORIENTATION_SQUARE, $img->getOrientation());
     }
 
-    public function testPortraite()
+    public function testPortrait()
     {
         $width = 2;
         $height = 3;
