@@ -24,14 +24,14 @@ abstract class ManipulateAbstract implements ManipulateInterface
      * Modify wrapper
      * Used in many function such as resize and grab
      *
-     * @param int $dst_x
-     * @param int $dst_y
-     * @param int $src_x
-     * @param int $src_y
-     * @param int $dst_w
-     * @param int $dst_h
-     * @param int $src_w
-     * @param int $src_h
+     * @param int $dst_x Destination X coord
+     * @param int $dst_y Destination Y coord
+     * @param int $src_x Source X coord
+     * @param int $src_y Source Y coord
+     * @param int $dst_w Destination width
+     * @param int $dst_h Destination height
+     * @param int $src_w Source width
+     * @param int $src_h Source height
      *
      * @return ManipulateInterface
      */
