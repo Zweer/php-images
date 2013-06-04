@@ -4,6 +4,7 @@ namespace Zweer\Image\Driver\Gd;
 
 use Zweer\Image\Driver\ImageAbstract;
 use Zweer\Image\Driver\ImageInterface;
+use Zweer\Image\Driver\ManipulateInterface;
 
 class Image extends ImageAbstract
 {
@@ -183,6 +184,20 @@ class Image extends ImageAbstract
     public function getHeight()
     {
         return imagesy($this->_resource);
+    }
+
+    /**
+     * Retrieves the manipulate engine
+     *
+     * @return ManipulateInterface
+     */
+    public function manipulate()
+    {
+        if (!isset($this->_manipulate)) {
+            $this->_manipulate = new Manipulate($this);
+        }
+
+        return $this->_manipulate;
     }
 
     /**

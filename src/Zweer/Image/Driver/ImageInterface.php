@@ -108,6 +108,13 @@ interface ImageInterface
     public function getOrientation();
 
     /**
+     * Retrieves the manipulation engine
+     *
+     * @return ManipulateInterface
+     */
+    public function manipulate();
+
+    /**
      * Parses the alpha
      * Parses the alpha and converts it into a valid value for the libraries.
      * Normally it converts [0-1] into [0-127].
