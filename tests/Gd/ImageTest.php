@@ -7,8 +7,9 @@ class ImageTest extends PHPUnit_Framework_TestCase
     public function testContructorEmptySquared()
     {
         $width = 2;
+        $height = 3;
 
-        $img = Image::create($width);
+        $img = Image::create($width, $height);
 
         $this->assertInstanceOf('Zweer\\Image\\Driver\\Gd\\Image', $img);
 
@@ -18,6 +19,6 @@ class ImageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($width, $img->getWidth());
 
         $this->assertInternalType('int', $img->getHeight());
-        $this->assertEquals($width, $img->getHeight());
+        $this->assertEquals($height, $img->getHeight());
     }
 }
