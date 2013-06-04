@@ -2,6 +2,8 @@
 
 namespace Zweer\Image;
 
+use Zweer\Image\Driver\ImageInterface;
+
 class Image
 {
     const ORIENTATION_LANDSCAPE = 'landscape';
@@ -12,6 +14,14 @@ class Image
     const LIBRARY_GMAGICK       = 'gmagick';
     const LIBRARY_IMAGICK       = 'imagick';
 
+    /**
+     * Creates an image from a file, resource or binary string
+     *
+     * @param string|resource $filename
+     * @param string          $library
+     *
+     * @return ImageInterface
+     */
     public static function make($filename, $library = null)
     {
         if (is_null($library)) {
@@ -22,6 +32,16 @@ class Image
         return new $class($filename);
     }
 
+    /**
+     * Creates an empty image with the specified dimensions and color
+     *
+     * @param int          $width
+     * @param int          $height
+     * @param array|string $bgColor
+     * @param string       $library
+     *
+     * @return ImageInterface
+     */
     public static function create($width, $height = null, $bgColor = null, $library = null)
     {
         if (is_null($library)) {
