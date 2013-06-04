@@ -4,7 +4,7 @@ use Zweer\Image\Image;
 
 class ImageTest extends PHPUnit_Framework_TestCase
 {
-    public function testContructorEmptySquared()
+    public function testContructorEmpty()
     {
         $width = 2;
         $height = 3;
