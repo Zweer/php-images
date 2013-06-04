@@ -108,6 +108,13 @@ interface ImageInterface
     public function getOrientation();
 
     /**
+     * Resource getter
+     *
+     * @return resource
+     */
+    public function getResource();
+
+    /**
      * Retrieves the manipulation engine
      *
      * @return ManipulateInterface
