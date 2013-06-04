@@ -1,6 +1,7 @@
 <?php
 
 use Zweer\Image\Image;
+use Zweer\Image\Driver\ImageAbstract;
 
 class ImageAbstractTest extends PHPUnit_Framework_TestCase
 {
@@ -34,5 +35,12 @@ class ImageAbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertInternalType('string', $img->getOrientation());
         $this->assertEquals(Image::ORIENTATION_LANDSCAPE, $img->getOrientation());
+    }
+
+    public function testStaticChecks()
+    {
+        $img = Image::create(2);
+
+        $this->assertTrue(ImageAbstract::isImageResource($img->getResource()));
     }
 }
