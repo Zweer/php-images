@@ -115,6 +115,16 @@ interface ImageInterface
     public function getResource();
 
     /**
+     * Resource setter
+     *
+     * @param resource $resource
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function setResource($resource);
+
+    /**
      * Retrieves the manipulation engine
      *
      * @return ManipulateInterface

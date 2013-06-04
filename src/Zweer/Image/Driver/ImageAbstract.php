@@ -314,6 +314,25 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Resource setter
+     *
+     * @param resource $resource
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function setResource($resource)
+    {
+        if (!static::isImageResource($resource)) {
+            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($resource));
+        }
+
+        $this->_resource = $resource;
+
+        return $this;
+    }
+
+    /**
      * The parameter is an image identifier?
      * States if the argument is an image resource.
      * It is usually extended to know if the resource is of the right library.
