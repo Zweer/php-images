@@ -23,11 +23,15 @@ abstract class ManipulateAbstract implements ManipulateInterface
     /**
      * Helper for the resizeing methods
      * Parses the $width and $height if it's set to a relative value
+     * $width and $height can be specified relative to the actual image size:
+     * - '+2' is 2 pixel more than the actual size;
+     * - '-2' (both an int or a string) is 2 pixel less than the actual size
+     * - '2%' is the percentage of the actua size
      *
      * @see resize()
      *
-     * @param int $width
-     * @param int $height
+     * @param int|string $width
+     * @param int|string $height
      */
     protected function _parseRelativeDimensions(&$width = null, &$height = null)
     {
