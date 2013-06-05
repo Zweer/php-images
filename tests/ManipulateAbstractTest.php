@@ -86,4 +86,19 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(intval($resizedWidth / 2), $img->getWidth());
         $this->assertEquals(intval($resizedHeight / 2), $img->getHeight());
     }
+
+    public function testCanvas()
+    {
+        $originalWidth = 20;
+        $originalHeight = 30;
+
+        $resizeWidth = 10;
+        $resizeHeight = 20;
+
+        $img = Image::create($originalWidth, $originalHeight);
+        $img->manipulate()->canvas($resizeWidth, $resizeHeight);
+
+        $this->assertEquals($resizeWidth, $img->getWidth());
+        $this->assertEquals($resizeHeight, $img->getHeight());
+    }
 }
