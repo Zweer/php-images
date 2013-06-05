@@ -24,6 +24,10 @@ class Image extends ImageAbstract
 
         $this->_resource = imagecreatetruecolor($width, $height);
 
+        // preserve transparency
+        imagealphablending($this->_resource, false);
+        imagesavealpha($this->_resource, true);
+
         if (!isset($bgColor)) {
             $bgColor = imagecolorallocatealpha($this->_resource, 0, 0, 0, 127);
         } else {
