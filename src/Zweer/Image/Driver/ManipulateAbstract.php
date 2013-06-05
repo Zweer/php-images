@@ -385,7 +385,7 @@ abstract class ManipulateAbstract implements ManipulateInterface
         }
 
         if (is_null($width) || is_null($height)) {
-            throw new \Exception('width and height of cutout needs to be defined');
+            throw new \Exception('The crop area must have defined $width and $height');
         }
 
         return $this->_modify(0, 0, $positionX , $positionY, $width, $height, $width, $height);
