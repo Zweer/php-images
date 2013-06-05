@@ -101,4 +101,24 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resizeWidth, $img->getWidth());
         $this->assertEquals($resizeHeight, $img->getHeight());
     }
+
+    public function testCrop()
+    {
+        $originalWidth = 20;
+        $originalHeight = 30;
+
+        $cropWidth = 10;
+        $cropHeight = 20;
+
+        $img = Image::create($originalWidth, $originalHeight);
+        $img->manipulate()->crop($cropWidth, $cropHeight);
+
+        $this->assertEquals($cropWidth, $img->getWidth());
+        $this->assertEquals($cropHeight, $img->getHeight());
+
+        $img->manipulate()->crop($cropWidth);
+
+        $this->assertEquals($cropWidth, $img->getWidth());
+        $this->assertEquals($cropWidth, $img->getHeight());
+    }
 }
