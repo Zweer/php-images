@@ -111,15 +111,13 @@ interface ImageInterface
     public function encode($format = null, $quality = null);
 
     /**
-     * Color parser
-     * Allocates the color in the image.
+     * Allocates the $color in the current image
      *
-     * @param array|string $color The color to parse
+     * @param array|string $color
      *
-     * @return null
-     * @throws \InvalidArgumentException
+     * @return ImageInterface
      */
-    public function parseColor($color);
+    public function allocateColor($color);
 
     /**
      * Retrieves the width of the image
@@ -187,7 +185,7 @@ interface ImageInterface
      * Parses the alpha
      * Parses the alpha and converts it into a valid value for the libraries.
      * Normally it converts [0-1] into [0-127].
-     * With $hex it converts [1-255] into [0-127].
+     * With $hex it converts [0-255] into [0-127].
      *
      * @param int  $alpha
      * @param bool $hex
@@ -195,4 +193,20 @@ interface ImageInterface
      * @return int
      */
     public static function parseAlpha($alpha, $hex = false);
+
+    /**
+     * Color parser
+     * Parses the color and returns and array with all the components:
+     * [0]: red,
+     * [1]: green,
+     * [2]: blue,
+     * [3]: alpha
+     * All the values are between [0-255] except alpha that is library dependant
+     *
+     * @param array|string $color The color to parse
+     *
+     * @return array 0: red, 1: green, 2: blue, 3: alpha
+     * @throws \InvalidArgumentException
+     */
+    public function parseColor($color);
 }

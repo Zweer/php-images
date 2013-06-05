@@ -173,24 +173,146 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
-     * Color parser
-     * This method does nothing but parsing the rgba integers to facilitate
-     * what the library-dependant function will do.
+     * Retrieves the orientation of the image
      *
-     * @abstract
+     * @return string
+     */
+    public function getOrientation()
+    {
+        if ($this->getWidth() > $this->getHeight()) {
+            return Image::ORIENTATION_LANDSCAPE;
+        } elseif ($this->getWidth() < $this->getHeight()) {
+            return Image::ORIENTATION_PORTRAIT;
+        } else {
+            return Image::ORIENTATION_SQUARE;
+        }
+    }
+
+    /**
+     * Resource getter
+     *
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->_resource;
+    }
+
+    /**
+     * Resource setter
+     *
+     * @param resource $resource
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function setResource($resource)
+    {
+        if (!static::isImageResource($resource)) {
+            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($resource));
+        }
+
+        $this->_resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * The parameter is an image identifier?
+     * States if the argument is an image resource.
+     * It is usually extended to know if the resource is of the right library.
+     *
+     * @param $resource
+     *
+     * @return bool
+     */
+    public static function isImageResource($resource)
+    {
+        return is_resource($resource);
+    }
+
+    /**
+     * The parameter is an image binary string?
+     * States if the argument is an image binary string.
+     * A binary string is characterized by characters that do not translate
+     * themselves into printable entities.
+     *
+     * @param $string
+     *
+     * @return bool
+     */
+    public static function isImageBinary($string)
+    {
+        return !ctype_print($string);
+    }
+
+    /**
+     * The parameter is a file?
+     * States if the argument represents an image from it's path.
+     * The path can be both local and an URL.
+     *
+     * @todo The path must be a valid image file
+     *
+     * @param $filename
+     *
+     * @return bool
+     */
+    public static function isImagePath($filename)
+    {
+        return is_file($filename);
+    }
+
+    /**
+     * Parses the alpha
+     * Parses the alpha and converts it into a valid value for the libraries.
+     * Normally it converts [0-1] into [0-127].
+     * With $hex it converts [1-255] into [0-127].
+     *
+     * @param int  $alpha
+     * @param bool $hex
+     *
+     * @return int
+     */
+    public static function parseAlpha($alpha, $hex = false)
+    {
+        if ($hex) {
+            $alpha += 0;
+            $range_input = range(0, 255, 255/127);
+            $range_output = range(127, 0);
+        } else {
+            $range_input = range(1, 0, 1/127);
+            $range_output = range(0, 127);
+        }
+
+        foreach ($range_input as $key => $value) {
+            if ($value <= $alpha) {
+                return $range_output[$key];
+            }
+        }
+
+        return 127;
+    }
+
+    /**
+     * Color parser
+     * Parses the color and returns and array with all the components:
+     * [0]: red,
+     * [1]: green,
+     * [2]: blue,
+     * [3]: alpha
+     * All the values are between [0-255] except alpha that is library dependant
      *
      * @param array|string $color The color to parse
-     * @param null         $red   Only used for internal parsing
-     * @param null         $green Only used for internal parsing
-     * @param null         $blue  Only used for internal parsing
-     * @param int          $alpha Only used for internal parsing
      *
-     * @return null
+     * @return array 0: red, 1: green, 2: blue, 3: alpha
      * @throws \InvalidArgumentException
      */
-    public function parseColor($color, &$red = null, &$green = null, &$blue = null, &$alpha = 0)
+    public static function parseColor($color)
     {
         $alpha = 0;
+        $red = null;
+        $green = null;
+        $blue = null;
 
         if (is_array($color)) {
             /*
@@ -314,127 +436,6 @@ abstract class ImageAbstract implements ImageInterface
             throw new \InvalidArgumentException('The $color provided is not a valid one: ' . var_dump($color));
         }
 
-        return null;
-    }
-
-    /**
-     * Retrieves the orientation of the image
-     *
-     * @return string
-     */
-    public function getOrientation()
-    {
-        if ($this->getWidth() > $this->getHeight()) {
-            return Image::ORIENTATION_LANDSCAPE;
-        } elseif ($this->getWidth() < $this->getHeight()) {
-            return Image::ORIENTATION_PORTRAIT;
-        } else {
-            return Image::ORIENTATION_SQUARE;
-        }
-    }
-
-    /**
-     * Resource getter
-     *
-     * @return resource
-     */
-    public function getResource()
-    {
-        return $this->_resource;
-    }
-
-    /**
-     * Resource setter
-     *
-     * @param resource $resource
-     *
-     * @throws \InvalidArgumentException
-     * @return ImageInterface
-     */
-    public function setResource($resource)
-    {
-        if (!static::isImageResource($resource)) {
-            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($resource));
-        }
-
-        $this->_resource = $resource;
-
-        return $this;
-    }
-
-    /**
-     * The parameter is an image identifier?
-     * States if the argument is an image resource.
-     * It is usually extended to know if the resource is of the right library.
-     *
-     * @param $resource
-     *
-     * @return bool
-     */
-    public static function isImageResource($resource)
-    {
-        return is_resource($resource);
-    }
-
-    /**
-     * The parameter is an image binary string?
-     * States if the argument is an image binary string.
-     * A binary string is characterized by characters that do not translate
-     * themselves into printable entities.
-     *
-     * @param $string
-     *
-     * @return bool
-     */
-    public static function isImageBinary($string)
-    {
-        return !ctype_print($string);
-    }
-
-    /**
-     * The parameter is a file?
-     * States if the argument represents an image from it's path.
-     * The path can be both local and an URL.
-     *
-     * @todo The path must be a valid image file
-     *
-     * @param $filename
-     *
-     * @return bool
-     */
-    public static function isImagePath($filename)
-    {
-        return is_file($filename);
-    }
-
-    /**
-     * Parses the alpha
-     * Parses the alpha and converts it into a valid value for the libraries.
-     * Normally it converts [0-1] into [0-127].
-     * With $hex it converts [1-255] into [0-127].
-     *
-     * @param int  $alpha
-     * @param bool $hex
-     *
-     * @return int
-     */
-    public static function parseAlpha($alpha, $hex = false)
-    {
-        if ($hex) {
-            $alpha += 0;
-            $range_input = range(0, 255, 255/127);
-            $range_output = range(127, 0);
-        } else {
-            $range_input = range(1, 0, 1/127);
-            $range_output = range(0, 127);
-        }
-
-        foreach ($range_input as $key => $value) {
-            if ($value <= $alpha) {
-                return $range_output[$key];
-            }
-        }
-
-        return 127;
+        return array($red, $green, $blue, $alpha);
     }
 }

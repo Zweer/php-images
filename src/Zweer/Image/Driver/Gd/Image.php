@@ -222,25 +222,19 @@ class Image extends ImageAbstract
     }
 
     /**
-     * Color parser
-     * Use the abstract function to parse the rgba value and then allocates
-     * the color in the image.
+     * Allocates the $color in the current image
      *
-     * @param array|string $color The color to parse
+     * @param array|string $color
      *
-     * @return null
-     * @throws \InvalidArgumentException
+     * @return ImageInterface
      */
-    public function parseColor($color)
+    public function allocateColor($color)
     {
-        $red = null;
-        $green = null;
-        $blue = null;
-        $alpha = 0;
+        list($red, $green, $blue, $alpha) = static::parseColor($color);
 
-        parent::parseColor($color, $red, $green, $blue, $alpha);
+        imagecolorallocatealpha($this->_resource, $red, $green, $blue, $alpha);
 
-        return imagecolorallocatealpha($this->_resource, $red, $green, $blue, $alpha);
+        return $this;
     }
 
     /**
