@@ -20,4 +20,18 @@ interface ManipulateInterface
      * @return ManipulateInterface
      */
     public function flip($mode = null);
+
+    /**
+     * Resizes the image
+     * You can decide if preserving the ratio and upsizing the image.
+     *
+     * @param int  $width
+     * @param int  $height
+     * @param bool $ratio
+     * @param bool $upsize
+     *
+     * @return ManipulateInterface
+     * @throws \Exception
+     */
+    public function resize($width = null, $height = null, $ratio = true, $upsize = true);
 }

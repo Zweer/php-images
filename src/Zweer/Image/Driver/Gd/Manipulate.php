@@ -69,4 +69,155 @@ class Manipulate extends ManipulateAbstract
 
         return $this->_modify(0, 0, $x, $y, $width, $height, $w, $h);
     }
+
+    /**
+     * Resizes the image
+     * You can decide if preserving the ratio and upsizing the image.
+     *
+     * @param int  $width
+     * @param int  $height
+     * @param bool $ratio
+     * @param bool $upsize
+     *
+     * @return ManipulateInterface
+     * @throws \Exception
+     */
+    public function resize($width = null, $height = null, $ratio = true, $upsize = true)
+    {
+        // Validates the passed parameters
+        $width = is_null($width) ? null : intval($width);
+        $height = $maxHeight = is_null($height) ? null : intval($height);
+        $ratio = !!$ratio;
+        $upsize = !!$upsize;
+
+        $w = $this->_image->getWidth();
+        $h = $this->_image->getHeight();
+
+        if ($ratio) {
+            /*
+            |--------------------------------------------------------------------------
+            | The ratio must be kept
+            |--------------------------------------------------------------------------
+            |
+            | The ratio must be preserved, so we calculate width and height accordingly
+            |
+            */
+
+            if (isset($width) and isset($height)) {
+                /*
+                |--------------------------------------------------------------------------
+                | Both $width and $height are set
+                |--------------------------------------------------------------------------
+                |
+                | In this case $width and $height assume the meaning of
+                | $maxWidth and $maxHeight
+                |
+                */
+
+                // Let's calculate the $height
+                $height = intval($width / $w * $h);
+
+                if ($height > $maxHeight) {
+                    /*
+                    |--------------------------------------------------------------------------
+                    | The height is bigger of the $maxHeight
+                    |--------------------------------------------------------------------------
+                    |
+                    | We set the $height to the $maxHeight and then calculate the
+                    | width accordingly
+                    |
+                    */
+
+                    $height = $maxHeight;
+                    $width = intval($height / $h * $w);
+                }
+            } elseif (isset($width) or isset($height)) {
+                /*
+                |--------------------------------------------------------------------------
+                | Only one of width and height is set
+                |--------------------------------------------------------------------------
+                |
+                | We calculate the other variable accordingly
+                |
+                */
+
+                $width = isset($width) ? $width : intval($height / $h * $w);
+                $height = isset($height) ? $height : intval($width / $w * $h);
+            }
+        }
+
+        if (!$upsize) {
+            /*
+            |--------------------------------------------------------------------------
+            | The image can't be upsized
+            |--------------------------------------------------------------------------
+            |
+            | We check if width and/or height are greater than the max.
+            | In this case we resize the image accordingly.
+            |
+            */
+
+            if (isset($width) and $width > $w) {
+                /*
+                |--------------------------------------------------------------------------
+                | The given $width is greater than the image width
+                |--------------------------------------------------------------------------
+                |
+                | We do not resize the image.
+                |
+                */
+
+                $width = $w;
+
+                if ($ratio) {
+                    /*
+                    |--------------------------------------------------------------------------
+                    | The $ratio must be kept
+                    |--------------------------------------------------------------------------
+                    |
+                    | We recalculate the height accordingly.
+                    |
+                    */
+
+                    $height = intval($width / $w * $h);
+                }
+            }
+
+            if (isset($height) and $height > $h) {
+                /*
+                |--------------------------------------------------------------------------
+                | The given $height is greater than the image height
+                |--------------------------------------------------------------------------
+                |
+                | We do not resize the image.
+                |
+                */
+
+                $height = $h;
+
+                if ($ratio) {
+                    /*
+                    |--------------------------------------------------------------------------
+                    | The $ratio must be kept
+                    |--------------------------------------------------------------------------
+                    |
+                    | We recalculate the width accordingly.
+                    |
+                    */
+
+                    $width = intval($height / $h * $w);
+                }
+            }
+        }
+
+        if (!isset($width) and !isset($height)) {
+            throw new \Exception('$width and $height must be set');
+        } elseif (!isset($width)) {
+            $width = $w;
+        } elseif (!isset($height)) {
+            $height = $h;
+        }
+
+        return $this->_modify(0, 0, 0, 0, $width, $height, $w, $h);
+    }
 }
