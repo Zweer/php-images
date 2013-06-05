@@ -55,6 +55,7 @@ interface ManipulateInterface
 
     /**
      * Crops an image of $width x $height, starting from ($positionX, $positionY)
+     * If the $height is null, the crop area is squared
      *
      * @param int $width
      * @param int $height
@@ -64,5 +65,5 @@ interface ManipulateInterface
      * @throws \Exception
      * @return mixed
      */
-    public function crop($width, $height, $positionX = null, $positionY = null);
+    public function crop($width, $height = null, $positionX = null, $positionY = null);
 }

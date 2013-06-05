@@ -360,6 +360,7 @@ abstract class ManipulateAbstract implements ManipulateInterface
 
     /**
      * Crops an image of $width x $height, starting from ($positionX, $positionY)
+     * If the $height is null, the crop area is squared
      *
      * @param int $width
      * @param int $height
@@ -369,11 +370,11 @@ abstract class ManipulateAbstract implements ManipulateInterface
      * @throws \Exception
      * @return mixed
      */
-    public function crop($width, $height, $positionX = null, $positionY = null)
+    public function crop($width, $height = null, $positionX = null, $positionY = null)
     {
         // Validates the current arguments
         $width = is_numeric($width) ? intval($width) : null;
-        $height = is_numeric($height) ? intval($height) : null;
+        $height = is_numeric($height) ? intval($height) : $width;
         $positionX = is_numeric($positionX) ? intval($positionX) : null;
         $positionY = is_numeric($positionY) ? intval($positionY) : null;
 
