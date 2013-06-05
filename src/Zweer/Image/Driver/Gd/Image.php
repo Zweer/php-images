@@ -215,6 +215,28 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Copies an $image into the current image
+     *
+     * @param ImageInterface $image
+     * @param int            $destinationX
+     * @param int            $destinationY
+     * @param int            $sourceX
+     * @param int            $sourceY
+     * @param int            $destinationWidth
+     * @param int            $destinationHeight
+     * @param int            $sourceWidth
+     * @param int            $sourceHeight
+     *
+     * @return ImageInterface
+     */
+    public function copy(ImageInterface $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight)
+    {
+        imagecopyresampled($this->_resource, $image->getResource(), $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+
+        return $this;
+    }
+
+    /**
      * The parameter is an image identifier?
      * Uses the abstract function to understand if the argument is a resource
      * and then states if it's a gd resource
