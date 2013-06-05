@@ -52,4 +52,17 @@ interface ManipulateInterface
      * @return ManipulateInterface
      */
     public function canvas($width = null, $height = null, $anchor = 'center', $bgColor = null);
+
+    /**
+     * Crops an image of $width x $height, starting from ($positionX, $positionY)
+     *
+     * @param int $width
+     * @param int $height
+     * @param int $positionX
+     * @param int $positionY
+     *
+     * @throws \Exception
+     * @return mixed
+     */
+    public function crop($width, $height, $positionX = null, $positionY = null);
 }

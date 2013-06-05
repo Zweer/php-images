@@ -357,4 +357,36 @@ abstract class ManipulateAbstract implements ManipulateInterface
 
         return $this->_modify($dst_x, $dst_y, $src_x, $src_y, $width, $height, $src_w, $src_h, $bgColor);
     }
+
+    /**
+     * Crops an image of $width x $height, starting from ($positionX, $positionY)
+     *
+     * @param int $width
+     * @param int $height
+     * @param int $positionX
+     * @param int $positionY
+     *
+     * @throws \Exception
+     * @return mixed
+     */
+    public function crop($width, $height, $positionX = null, $positionY = null)
+    {
+        // Validates the current arguments
+        $width = is_numeric($width) ? intval($width) : null;
+        $height = is_numeric($height) ? intval($height) : null;
+        $positionX = is_numeric($positionX) ? intval($positionX) : null;
+        $positionY = is_numeric($positionY) ? intval($positionY) : null;
+
+        if (is_null($positionX) && is_null($positionY)) {
+            // center position of width/height rectangle
+            $positionX = floor(($this->_image->getWidth() - intval($width)) / 2);
+            $positionY = floor(($this->_image->getHeight() - intval($height)) / 2);
+        }
+
+        if (is_null($width) || is_null($height)) {
+            throw new \Exception('width and height of cutout needs to be defined');
+        }
+
+        return $this->_modify(0, 0, $positionX , $positionY, $width, $height, $width, $height);
+    }
 }
