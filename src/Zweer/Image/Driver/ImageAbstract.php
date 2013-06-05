@@ -438,4 +438,21 @@ abstract class ImageAbstract implements ImageInterface
 
         return array($red, $green, $blue, $alpha);
     }
+
+    /**
+     * Parses the dimensions into valid values
+     * It returns an array with width and height.
+     *
+     * @param int $width
+     * @param int $height
+     *
+     * @return array 0: width, 1: height
+     */
+    public static function parseDimensions($width, $height = null)
+    {
+        $width = is_numeric($width) ? intval($width) : 1;
+        $height = !isset($height) ? $width : (is_numeric($height) ? intval($height) : 1);
+
+        return array($width, $height);
+    }
 }
