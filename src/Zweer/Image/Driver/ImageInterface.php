@@ -208,5 +208,5 @@ interface ImageInterface
      * @return array 0: red, 1: green, 2: blue, 3: alpha
      * @throws \InvalidArgumentException
      */
-    public function parseColor($color);
+    public static function parseColor($color);
 }
