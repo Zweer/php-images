@@ -57,6 +57,16 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Returns the string representation of the image
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->encode();
+    }
+
+    /**
      * Initializes an empty image
      * If the $height is not specified, the image is squared.
      *
@@ -140,6 +150,26 @@ abstract class ImageAbstract implements ImageInterface
         if (!isset($filename) and !isset($this->_filename)) {
             throw new \Exception('To save a file you must provide a valid $filename');
         }
+    }
+
+    /**
+     * Encodes the image as a base64 string
+     *
+     * @param int $format
+     * @param int $quality
+     *
+     * @return string
+     */
+    public function encode($format = null, $quality = null)
+    {
+        ob_start();
+
+        $mime = $this->output($format, $quality, false);
+
+        $data = ob_get_contents();
+        ob_end_clean();
+
+        return sprintf('data:%s;base64,%s', $mime, base64_encode($data));
     }
 
     /**
