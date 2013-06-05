@@ -4,7 +4,7 @@ namespace Zweer\Image\Driver\Gd;
 
 use Zweer\Image\Driver\ManipulateAbstract;
 use Zweer\Image\Driver\ManipulateInterface;
-use Zweer\Image\Image;
+use Zweer\Image\Image as ImageWrapper;
 
 class Manipulate extends ManipulateAbstract
 {
@@ -55,12 +55,12 @@ class Manipulate extends ManipulateAbstract
         $h = $height = $this->_image->getHeight();
 
         switch (strtolower($mode)) {
-            case Image::FLIP_VERTICAL:
+            case ImageWrapper::FLIP_VERTICAL:
                 $y = $h - 1;
                 $h *= -1;
                 break;
 
-            case Image::FLIP_HORIZONTAL:
+            case ImageWrapper::FLIP_HORIZONTAL:
             default:
                 $x = $w - 1;
                 $w *= -1;
