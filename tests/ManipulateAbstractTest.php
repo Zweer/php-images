@@ -4,6 +4,23 @@ use Zweer\Image\Image;
 
 class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
 {
+    public function testFlip()
+    {
+        $width = 20;
+        $height = 30;
+
+        $img = Image::create($width, $height);
+        $img->manipulate()->flip(Image::FLIP_HORIZONTAL);
+
+        $this->assertEquals($width, $img->getWidth());
+        $this->assertEquals($height, $img->getHeight());
+
+        $img->manipulate()->flip(Image::FLIP_VERTICAL);
+
+        $this->assertEquals($width, $img->getWidth());
+        $this->assertEquals($height, $img->getHeight());
+    }
+
     public function testResize()
     {
         $originalWidth = 20;
