@@ -159,6 +159,69 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Outputs the image to the stdout
+     *
+     * @param int  $format
+     * @param int  $quality
+     * @param bool $header
+     *
+     * @return string The mime type of the outputted image
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function output($format = null, $quality = null, $header = true)
+    {
+        if (!isset($format)) {
+            if (!isset($this->_format)) {
+                $format = IMG_PNG;
+            } else {
+                $format = $this->_format;
+            }
+        }
+
+        if (!isset($quality)) {
+            $quality = 90;
+        }
+
+        if ($quality < 0 or $quality > 100) {
+            throw new \Exception('Output quality must be between 0 and 100, "' . $quality . '" provided');
+        }
+
+        switch ($format) {
+            case IMG_GIF:
+                if ($header) {
+                    header('Content-type: image/gif');
+                }
+
+                imagegif($this->_resource);
+                break;
+
+            case IMG_JPG:
+                if ($header) {
+                    header('Content-type: image/jpeg');
+                }
+
+                imagejpeg($this->_resource, null, $quality);
+                break;
+
+            case IMG_PNG:
+                if ($header) {
+                    header('Content-type: image/png');
+                }
+
+                // Transform the quality into the PNG dependant quality [0-9]
+                $quality = round($quality / 11.11111111);
+                imagepng($this->_resource, null, $quality);
+                break;
+
+            default:
+                throw new \InvalidArgumentException('The format specified is not supported: ' . $format);
+        }
+
+        return image_type_to_mime_type($format);
+    }
+
+    /**
      * Color parser
      * Use the abstract function to parse the rgba value and then allocates
      * the color in the image.
