@@ -28,6 +28,11 @@ interface ImageInterface
     public function __destruct();
 
     /**
+     * Clones the resource
+     */
+    public function __clone();
+
+    /**
      * Returns the string representation of the image
      *
      * @return string
@@ -161,6 +166,13 @@ interface ImageInterface
      * @return resource
      */
     public function getResource();
+
+    /**
+     * Resource cloner
+     *
+     * @return resource
+     */
+    public function cloneResource();
 
     /**
      * Resource setter

@@ -67,6 +67,14 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Clones the resource
+     */
+    public function __clone()
+    {
+        $this->_resource = $this->cloneResource();
+    }
+
+    /**
      * Initializes the image from a resource
      *
      * @param resource $resource

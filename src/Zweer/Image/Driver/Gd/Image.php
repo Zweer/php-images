@@ -268,6 +268,26 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Resource cloner
+     *
+     * @return resource
+     */
+    public function cloneResource()
+    {
+        if (isset($this->_resource)) {
+            $w = $this->getWidth();
+            $h = $this->getHeight();
+
+            $clone = static::createBlank($w, $h);
+            imagecopy($clone, $this->_resource, 0, 0, 0, 0, $w, $h);
+
+            return $clone;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Retrieves the manipulate engine
      *
      * @return ManipulateInterface
