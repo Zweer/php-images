@@ -219,4 +219,116 @@ class Manipulate extends ManipulateAbstract
 
         return $this->_modify(0, 0, 0, 0, $width, $height, $w, $h);
     }
+
+    /**
+     * Resize image canvas
+     *
+     * @see _modify
+     *
+     * @param int    $width
+     * @param int    $height
+     * @param string $anchor
+     * @param string $bgColor
+     *
+     * @return ManipulateInterface
+     */
+    public function canvas($width = null, $height = null, $anchor = 'center', $bgColor = null)
+    {
+        // Parse the relative dimensions
+        $this->_parseRelativeDimensions($width, $height);
+
+        // Validates the passed parameters
+        $w = $this->_image->getWidth();
+        $h = $this->_image->getHeight();
+        $width = !isset($width) ? $w : intval($width);
+        $height = !isset($height) ? $h : intval($height);
+
+        if ($width > $w) {
+            $src_w = $w;
+        } else {
+            $src_w = $width;
+        }
+
+        if ($height > $h) {
+            $src_h = $h;
+        } else {
+            $src_h = $height;
+        }
+
+        switch ($anchor) {
+            case 'top left':
+            case 'left top':
+                $src_x = 0;
+                $src_y = 0;
+                break;
+
+            case 'top':
+            case 'top center':
+            case 'center top':
+            case 'top middle':
+            case 'middle top':
+                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
+                $src_y = 0;
+                break;
+
+            case 'top right':
+            case 'right top':
+                $src_x = $width < $w ? intval($w - $width) : 0;
+                $src_y = 0;
+                break;
+
+            case 'left':
+            case 'left center':
+            case 'left middle':
+            case 'center left':
+            case 'middle left':
+                $src_x = 0;
+                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
+                break;
+
+            case 'right':
+            case 'right center':
+            case 'right middle':
+            case 'center right':
+            case 'middle right':
+                $src_x = $width < $w ? intval($w - $width) : 0;
+                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
+                break;
+
+            case 'bottom left':
+            case 'left bottom':
+                $src_x = 0;
+                $src_y = $height < $h ? intval($h - $height) : 0;
+                break;
+
+            case 'bottom':
+            case 'bottom center':
+            case 'bottom middle':
+            case 'center bottom':
+            case 'middle bottom':
+                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
+                $src_y = $height < $h ? intval($h - $height) : 0;
+                break;
+
+            case 'bottom right':
+            case 'right bottom':
+                $src_x = $width < $w ? intval($w - $width) : 0;
+                $src_y = $height < $h ? intval($h - $height) : 0;
+                break;
+
+            default:
+            case 'center':
+            case 'middle':
+            case 'center center':
+            case 'middle middle':
+                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
+                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
+                break;
+        }
+
+        $dst_x = $width < $w ? 0 : intval(($width - $w) / 2);
+        $dst_y = $height < $h ? 0 : intval(($height - $h) / 2);
+
+        return $this->_modify($dst_x, $dst_y, $src_x, $src_y, $width, $height, $src_w, $src_h, $bgColor);
+    }
 }

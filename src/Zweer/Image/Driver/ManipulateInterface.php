@@ -38,4 +38,18 @@ interface ManipulateInterface
      * @throws \Exception
      */
     public function resize($width = null, $height = null, $ratio = true, $upsize = true);
+
+    /**
+     * Resize image canvas
+     *
+     * @see _modify
+     *
+     * @param int    $width
+     * @param int    $height
+     * @param string $anchor
+     * @param string $bgColor
+     *
+     * @return ManipulateInterface
+     */
+    public function canvas($width = null, $height = null, $anchor = 'center', $bgColor = null);
 }
