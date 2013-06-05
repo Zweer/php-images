@@ -28,6 +28,13 @@ interface ImageInterface
     public function __destruct();
 
     /**
+     * Returns the string representation of the image
+     *
+     * @return string
+     */
+    public function __toString();
+
+    /**
      * Initializes an empty image
      * If the $height is not specified, the image is squared.
      * If the $bgColor is not specified, the image is filled with a transparent
@@ -79,6 +86,29 @@ interface ImageInterface
      * @throws \Exception
      */
     public function save($filename = null, $quality = null);
+
+    /**
+     * Outputs the image to the stdout
+     *
+     * @param int  $format
+     * @param int  $quality
+     * @param bool $header
+     *
+     * @return int The format of the outputted image
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
+    public function output($format = null, $quality = null, $header = true);
+
+    /**
+     * Encodes the image as a base64 string
+     *
+     * @param int $format
+     * @param int $quality
+     *
+     * @return string
+     */
+    public function encode($format = null, $quality = null);
 
     /**
      * Color parser
