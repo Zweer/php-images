@@ -67,22 +67,6 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
-     * Initializes an empty image
-     * If the $height is not specified, the image is squared.
-     *
-     * @abstract
-     *
-     * @param int          $width   The width of the new empty image
-     * @param int          $height  The height of the new empty image
-     * @param array|string $bgColor The color to use for the background of the image
-     */
-    public function initEmpty(&$width, &$height = null, &$bgColor = null)
-    {
-        $width = is_numeric($width) ? intval($width) : 1;
-        $height = !isset($height) ? $width : (is_numeric($height) ? intval($height) : 1);
-    }
-
-    /**
      * Initializes the image from a resource
      *
      * @param resource $resource

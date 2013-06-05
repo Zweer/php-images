@@ -44,7 +44,7 @@ interface ImageInterface
      * @param int          $height  The height of the new empty image
      * @param array|string $bgColor The color to use for the background of the image
      */
-    public function initEmpty(&$width, &$height = null, &$bgColor = null);
+    public function initEmpty($width, $height = null, $bgColor = null);
 
     /**
      * Initializes the image from a resource

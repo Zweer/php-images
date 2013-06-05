@@ -28,15 +28,9 @@ class Image extends ImageAbstract
      * @param int          $height  The height of the new empty image
      * @param array|string $bgColor The color to use for the background of the image
      */
-    public function initEmpty(&$width, &$height = null, &$bgColor = null)
+    public function initEmpty($width, $height = null, $bgColor = null)
     {
-        parent::initEmpty($width, $height, $bgColor);
-
-        $this->_resource = imagecreatetruecolor($width, $height);
-
-        // preserve transparency
-        imagealphablending($this->_resource, false);
-        imagesavealpha($this->_resource, true);
+        $this->_resource = static::createBlank($width, $height);
 
         if (!isset($bgColor)) {
             $bgColor = imagecolorallocatealpha($this->_resource, 0, 0, 0, 127);
