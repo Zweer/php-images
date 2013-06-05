@@ -32,13 +32,11 @@ class Image extends ImageAbstract
     {
         $this->_resource = static::createBlank($width, $height);
 
-        if (!isset($bgColor)) {
-            $bgColor = imagecolorallocatealpha($this->_resource, 0, 0, 0, 127);
+        if (isset($bgColor)) {
+            $this->fill($bgColor);
         } else {
-            $bgColor = $this->parseColor($bgColor);
+            $this->fill();
         }
-
-        imagefill($this->_resource, 0, 0, $bgColor);
     }
 
     /**
