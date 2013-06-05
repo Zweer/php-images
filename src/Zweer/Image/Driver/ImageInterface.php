@@ -197,9 +197,28 @@ interface ImageInterface
      * @param int                     $sourceWidth
      * @param int                     $sourceHeight
      *
+     * @throws \InvalidArgumentException
      * @return ImageInterface
      */
     public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+
+    /**
+     * Copies the current image into $image and than replace it
+     *
+     * @param ImageInterface $image
+     * @param int            $destinationX
+     * @param int            $destinationY
+     * @param int            $sourceX
+     * @param int            $sourceY
+     * @param int            $destinationWidth
+     * @param int            $destinationHeight
+     * @param int            $sourceWidth
+     * @param int            $sourceHeight
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function replace(ImageInterface $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
 
     /**
      * Retrieves the manipulation engine

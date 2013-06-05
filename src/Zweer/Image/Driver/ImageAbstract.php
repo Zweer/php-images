@@ -210,6 +210,29 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Copies the current image into $image and than replace it
+     *
+     * @param ImageInterface $image
+     * @param int            $destinationX
+     * @param int            $destinationY
+     * @param int            $sourceX
+     * @param int            $sourceY
+     * @param int            $destinationWidth
+     * @param int            $destinationHeight
+     * @param int            $sourceWidth
+     * @param int            $sourceHeight
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function replace(ImageInterface $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight)
+    {
+        $image->copy($this, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+
+        return $this->setResource($image->cloneResource());
+    }
+
+    /**
      * The parameter is an image identifier?
      * States if the argument is an image resource.
      * It is usually extended to know if the resource is of the right library.
