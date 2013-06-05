@@ -23,6 +23,11 @@ interface ImageInterface
     public function __construct($filename = null, $width = null, $height = null, $bgColor = null);
 
     /**
+     * Destroys the current image resource, freeing space
+     */
+    public function __destruct();
+
+    /**
      * Initializes an empty image
      * If the $height is not specified, the image is squared.
      * If the $bgColor is not specified, the image is filled with a transparent

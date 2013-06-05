@@ -9,6 +9,16 @@ use Zweer\Image\Driver\ManipulateInterface;
 class Image extends ImageAbstract
 {
     /**
+     * Destroys the current image resource, freeing space
+     */
+    public function __destruct()
+    {
+        if (isset($this->_resource)) {
+            imagedestroy($this->_resource);
+        }
+    }
+
+    /**
      * Initializes an empty image
      * It uses the abstract method to check the dimensions.
      * If the $bgColor is not specified, the image is filled with a transparent
