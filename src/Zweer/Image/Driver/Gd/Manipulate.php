@@ -28,7 +28,7 @@ class Manipulate extends ManipulateAbstract
     {
         $newImage = ImageWrapper::create($destinationWidth, $destinationHeight, $bgColor);
 
-        $this->_image->copy($newImage, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+        $this->_image->replace($newImage, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
 
         return $this;
     }
