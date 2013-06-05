@@ -209,4 +209,14 @@ interface ImageInterface
      * @throws \InvalidArgumentException
      */
     public static function parseColor($color);
+
+    /**
+     * Creates a blank image
+     *
+     * @param int $width
+     * @param int $height
+     *
+     * @return resource
+     */
+    public static function createBlank($width, $height = null);
 }

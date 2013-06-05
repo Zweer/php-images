@@ -306,4 +306,25 @@ class Image extends ImageAbstract
     {
         return parent::isImageResource($resource) and get_resource_type($resource) == 'gd';
     }
+
+    /**
+     * Creates a blank image
+     *
+     * @param int $width
+     * @param int $height
+     *
+     * @return resource
+     */
+    public static function createBlank($width, $height = null)
+    {
+        list($width, $height) = static::parseDimensions($width, $height);
+
+        $new = imagecreatetruecolor($width, $height);
+
+        // preserve transparency
+        imagealphablending($new, false);
+        imagesavealpha($new, true);
+
+        return $new;
+    }
 }
