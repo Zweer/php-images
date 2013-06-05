@@ -4,6 +4,7 @@ namespace Zweer\Image\Driver\Gd;
 
 use Zweer\Image\Driver\ManipulateAbstract;
 use Zweer\Image\Driver\ManipulateInterface;
+use Zweer\Image\Image;
 
 class Manipulate extends ManipulateAbstract
 {
@@ -22,7 +23,7 @@ class Manipulate extends ManipulateAbstract
      *
      * @return ManipulateInterface
      */
-    protected function modify($dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
+    protected function _modify($dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h)
     {
         // create new image
         $image = imagecreatetruecolor($dst_w, $dst_h);
@@ -38,5 +39,34 @@ class Manipulate extends ManipulateAbstract
         $this->_image->setResource($image);
 
         return $this;
+    }
+
+    /**
+     * Flips the image horizontally (default) or vertically
+     *
+     * @param string $mode
+     *
+     * @return ManipulateInterface
+     */
+    public function flip($mode = null)
+    {
+        $x = $y = 0;
+        $w = $width = $this->_image->getWidth();
+        $h = $height = $this->_image->getHeight();
+
+        switch (strtolower($mode)) {
+            case Image::FLIP_VERTICAL:
+                $y = $h - 1;
+                $h *= -1;
+                break;
+
+            case Image::FLIP_HORIZONTAL:
+            default:
+                $x = $w - 1;
+                $w *= -1;
+                break;
+        }
+
+        return $this->_modify(0, 0, $x, $y, $width, $height, $w, $h);
     }
 }
