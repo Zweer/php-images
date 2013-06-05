@@ -113,11 +113,26 @@ interface ImageInterface
     /**
      * Allocates the $color in the current image
      *
+     * @see parseColor()
+     *
+     * @param array|string $color
+     *
+     * @return int The color identifier
+     */
+    public function allocateColor($color);
+
+    /**
+     * Fills the image with $color
+     * Before filling, it allocates the color.
+     * If no argument is provided, it fills with a transparent color.
+     *
+     * @see allocateColor()
+     *
      * @param array|string $color
      *
      * @return ImageInterface
      */
-    public function allocateColor($color);
+    public function fill($color = 'f000');
 
     /**
      * Retrieves the width of the image
@@ -202,6 +217,8 @@ interface ImageInterface
      * [2]: blue,
      * [3]: alpha
      * All the values are between [0-255] except alpha that is library dependant
+     *
+     * @see parseAlpha()
      *
      * @param array|string $color The color to parse
      *

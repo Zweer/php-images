@@ -220,13 +220,31 @@ class Image extends ImageAbstract
      *
      * @param array|string $color
      *
-     * @return ImageInterface
+     * @return int The color identifier
      */
     public function allocateColor($color)
     {
         list($red, $green, $blue, $alpha) = static::parseColor($color);
 
-        imagecolorallocatealpha($this->_resource, $red, $green, $blue, $alpha);
+        return imagecolorallocatealpha($this->_resource, $red, $green, $blue, $alpha);
+    }
+
+    /**
+     * Fills the image with $color
+     * Before filling, it allocates the color.
+     * If no argument is provided, it fills with a transparent color.
+     *
+     * @see allocateColor()
+     *
+     * @param array|string $color
+     *
+     * @return ImageInterface
+     */
+    public function fill($color = 'f000')
+    {
+        $color = $this->allocateColor($color);
+
+        imagefill($this->_resource, 0, 0, $color);
 
         return $this;
     }
