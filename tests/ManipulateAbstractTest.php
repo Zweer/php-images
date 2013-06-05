@@ -33,5 +33,10 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($resizeWidth, $img->getWidth());
         $this->assertEquals($resizeHeight, $img->getHeight());
+
+        $img->manipulate()->resize($resizeWidth + 1, $resizeHeight + 1, true, false);
+
+        $this->assertEquals($resizeWidth, $img->getWidth());
+        $this->assertEquals($resizeHeight, $img->getHeight());
     }
 }
