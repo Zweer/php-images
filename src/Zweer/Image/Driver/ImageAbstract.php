@@ -43,7 +43,7 @@ abstract class ImageAbstract implements ImageInterface
      * @param array|string    $bgColor  The color to use for the background of the image
      */
     public function __construct($filename = null, $width = null, $height = null, $bgColor = null) {
-        if (is_null($filename)) {
+        if (!isset($filename)) {
             $this->initEmpty($width, $height, $bgColor);
         } else {
             if (static::isImageResource($filename)) {
@@ -69,7 +69,7 @@ abstract class ImageAbstract implements ImageInterface
     public function initEmpty(&$width, &$height = null, &$bgColor = null)
     {
         $width = is_numeric($width) ? intval($width) : 1;
-        $height = is_null($height) ? $width : (is_numeric($height) ? intval($height) : 1);
+        $height = !isset($height) ? $width : (is_numeric($height) ? intval($height) : 1);
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class ImageAbstract implements ImageInterface
      */
     public function save($filename = null, $quality = null)
     {
-        if (is_null($filename) && !isset($this->_filename)) {
+        if (!isset($filename) and !isset($this->_filename)) {
             throw new \Exception('To save a file you must provide a valid $filename');
         }
     }
@@ -176,7 +176,7 @@ abstract class ImageAbstract implements ImageInterface
             |
             */
 
-            if (count($color) < 3 || count($color) > 4) {
+            if (count($color) < 3 or count($color) > 4) {
                 /*
                 |--------------------------------------------------------------------------
                 | The array provided is not valid
@@ -280,7 +280,7 @@ abstract class ImageAbstract implements ImageInterface
             }
         }
 
-        if (is_null($red) || is_null($green) || is_null($blue)) {
+        if (!isset($red) or !isset($green) or !isset($blue)) {
             throw new \InvalidArgumentException('The $color provided is not a valid one: ' . var_dump($color));
         }
 

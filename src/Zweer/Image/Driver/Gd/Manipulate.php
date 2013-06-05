@@ -85,8 +85,8 @@ class Manipulate extends ManipulateAbstract
     public function resize($width = null, $height = null, $ratio = true, $upsize = true)
     {
         // Validates the passed parameters
-        $width = is_null($width) ? null : intval($width);
-        $height = $maxHeight = is_null($height) ? null : intval($height);
+        $width = !isset($width) ? null : intval($width);
+        $height = $maxHeight = !isset($height) ? null : intval($height);
         $ratio = !!$ratio;
         $upsize = !!$upsize;
 

@@ -24,7 +24,7 @@ class Image extends ImageAbstract
 
         $this->_resource = imagecreatetruecolor($width, $height);
 
-        if (is_null($bgColor)) {
+        if (!isset($bgColor)) {
             $bgColor = imagecolorallocatealpha($this->_resource, 0, 0, 0, 127);
         } else {
             $bgColor = $this->parseColor($bgColor);
@@ -106,14 +106,14 @@ class Image extends ImageAbstract
     {
         parent::save($filename, $quality);
 
-        if (is_null($filename)) {
+        if (!isset($filename)) {
             $filename = $this->_filename;
         }
 
         $format = substr(strrchr($filename, '.'), 1);
         switch ($format) {
             case 'png':
-                if (is_null($quality)) {
+                if (!isset($quality)) {
                     $quality = 9;
                 }
 
@@ -122,7 +122,7 @@ class Image extends ImageAbstract
 
             case 'jpg':
             case 'jpeg':
-                if (is_null($quality)) {
+                if (!isset($quality)) {
                     $quality = 85;
                 }
 
@@ -211,6 +211,6 @@ class Image extends ImageAbstract
      */
     public static function isImageResource($resource)
     {
-        return parent::isImageResource($resource) && get_resource_type($resource) == 'gd';
+        return parent::isImageResource($resource) and get_resource_type($resource) == 'gd';
     }
 }

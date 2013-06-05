@@ -27,7 +27,7 @@ class Image
      */
     public static function make($filename, $library = null)
     {
-        if (is_null($library)) {
+        if (!isset($library)) {
             $library = static::LIBRARY_GD;
         }
 
@@ -47,7 +47,7 @@ class Image
      */
     public static function create($width, $height = null, $bgColor = null, $library = null)
     {
-        if (is_null($library)) {
+        if (!isset($library)) {
             $library = static::LIBRARY_GD;
         }
 
