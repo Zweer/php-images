@@ -284,21 +284,28 @@ class Image extends ImageAbstract
     /**
      * Copies an $image into the current image
      *
-     * @param ImageInterface $image
-     * @param int            $destinationX
-     * @param int            $destinationY
-     * @param int            $sourceX
-     * @param int            $sourceY
-     * @param int            $destinationWidth
-     * @param int            $destinationHeight
-     * @param int            $sourceWidth
-     * @param int            $sourceHeight
+     * @param ImageInterface|resource $image
+     * @param int                     $destinationX
+     * @param int                     $destinationY
+     * @param int                     $sourceX
+     * @param int                     $sourceY
+     * @param int                     $destinationWidth
+     * @param int                     $destinationHeight
+     * @param int                     $sourceWidth
+     * @param int                     $sourceHeight
      *
+     * @throws \InvalidArgumentException
      * @return ImageInterface
      */
-    public function copy(ImageInterface $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight)
+    public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight)
     {
-        imagecopyresampled($this->_resource, $image->getResource(), $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+        if ($image instanceof ImageInterface) {
+            $image = $image->getResource();
+        } elseif (!static::isImageResource($image)) {
+            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($image));
+        }
+
+        imagecopyresampled($this->_resource, $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
 
         return $this;
     }
