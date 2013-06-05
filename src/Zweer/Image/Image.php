@@ -14,6 +14,9 @@ class Image
     const LIBRARY_GMAGICK       = 'gmagick';
     const LIBRARY_IMAGICK       = 'imagick';
 
+    const FLIP_HORIZONTAL       = 'horizontal';
+    const FLIP_VERTICAL         = 'vertical';
+
     /**
      * Creates an image from a file, resource or binary string
      *
