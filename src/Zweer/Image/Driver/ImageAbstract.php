@@ -210,6 +210,100 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Inserts an image into the current image
+     * It's a wrapper of copy() using the $anchor
+     *
+     * @param ImageInterface|resource $image
+     * @param int                     $positionX
+     * @param int                     $positionY
+     * @param string                  $anchor
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function insert($image, $positionX = 0, $positionY = 0, $anchor = 'top left')
+    {
+        if (static::isImageResource($image)) {
+            $image = new static($image);
+        } elseif (!$image instanceof ImageInterface) {
+            throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($image));
+        }
+
+        switch ($anchor) {
+            case 'top':
+            case 'top center':
+            case 'top middle':
+            case 'center top':
+            case 'middle top':
+                $positionX = intval((($this->getWidth() - $image->getWidth()) / 2) + $positionX);
+                $positionY = intval($positionY);
+                break;
+
+            case 'top right':
+            case 'right top':
+                $positionX = intval($this->getWidth() - $image->getWidth() - $positionX);
+                $positionY = intval($positionY);
+                break;
+
+            case 'left':
+            case 'left center':
+            case 'left middle':
+            case 'center left':
+            case 'middle left':
+                $positionX = intval($positionX);
+                $positionY = intval((($this->getHeight() - $image->getHeight()) / 2) + $positionY);
+                break;
+
+            case 'right':
+            case 'right center':
+            case 'right middle':
+            case 'center right':
+            case 'middle right':
+                $positionX = intval($this->getWidth() - $image->getWidth() - $positionX);
+                $positionY = intval((($this->getHeight() - $image->getHeight()) / 2) + $positionY);
+                break;
+
+            case 'bottom left':
+            case 'left bottom':
+                $positionX = intval($positionX);
+                $positionY = intval($this->getHeight() - $image->getHeight() - $positionY);
+                break;
+
+            case 'bottom':
+            case 'bottom center':
+            case 'bottom middle':
+            case 'center bottom':
+            case 'middle bottom':
+                $positionX = intval((($this->getWidth() - $image->getWidth()) / 2) + $positionX);
+                $positionY = intval($this->getHeight() - $image->getHeight() - $positionY);
+                break;
+
+            case 'bottom right':
+            case 'right bottom':
+                $positionX = intval($this->getWidth() - $image->getWidth() - $positionX);
+                $positionY = intval($this->getHeight() - $image->getHeight() - $positionY);
+                break;
+
+            case 'center':
+            case 'middle':
+            case 'center center':
+            case 'middle middle':
+                $positionX = intval((($this->getWidth() - $image->getWidth()) / 2) + $positionX);
+                $positionY = intval((($this->getHeight() - $image->getHeight()) / 2) + $positionY);
+                break;
+
+            default:
+            case 'top left':
+            case 'left top':
+                $positionX = intval($positionX);
+                $positionY = intval($positionY);
+                break;
+        }
+
+        return $this->copy($image, $positionX, $positionY, 0, 0, $image->getWidth(), $image->getHeight());
+    }
+
+    /**
      * Copies the current image into $image and than replace it
      *
      * @param ImageInterface $image

@@ -204,6 +204,20 @@ interface ImageInterface
     public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth = null, $sourceHeight = null);
 
     /**
+     * Inserts an image into the current image
+     * It's a wrapper of copy() using the $anchor
+     *
+     * @param ImageInterface|resource $image
+     * @param int                     $positionX
+     * @param int                     $positionY
+     * @param string                  $anchor
+     *
+     * @throws \InvalidArgumentException
+     * @return ImageInterface
+     */
+    public function insert($image, $positionX = 0, $positionY = 0, $anchor = 'top left');
+
+    /**
      * Copies the current image into $image and than replace it
      *
      * @param ImageInterface $image
