@@ -12,4 +12,11 @@ interface EngineInterface
      * @param ImageInterface $image
      */
     public function __construct(ImageInterface $image);
+
+    /**
+     * Returns the string representation of the image
+     *
+     * @return string
+     */
+    public function __toString();
 }

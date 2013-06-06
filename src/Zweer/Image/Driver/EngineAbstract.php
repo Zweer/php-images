@@ -19,4 +19,14 @@ abstract class EngineAbstract implements EngineInterface
     {
         $this->_image = $image;
     }
+
+    /**
+     * Returns the string representation of the image
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->_image;
+    }
 }

@@ -7,16 +7,6 @@ use Zweer\Image\Image as ImageWrapper;
 abstract class ManipulateAbstract extends EngineAbstract implements ManipulateInterface
 {
     /**
-     * Returns the string representation of the image
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->_image;
-    }
-
-    /**
      * Helper for the resizeing methods
      * Parses the $width and $height if it's set to a relative value
      * $width and $height can be specified relative to the actual image size:
