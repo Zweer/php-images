@@ -235,15 +235,24 @@ class Image extends ImageAbstract
      *
      * @see allocateColor()
      *
-     * @param array|string $color
-     * @param int          $positionX
-     * @param int          $positionY
+     * @param array|string|resource|ImageInterface $color
+     * @param int                                  $positionX
+     * @param int                                  $positionY
      *
      * @return ImageInterface
      */
     public function fill($color = 'f000', $positionX = 0, $positionY = 0)
     {
-        $color = $this->allocateColor($color);
+        if (static::isImageResource($color) or static::isImageBinary($color) or static::isImagePath($color)) {
+            $color = new static($color);
+        }
+
+        if ($color instanceof ImageInterface) {
+            imagesettile($this->_resource, $color->getResource());
+            $color = IMG_COLOR_TILED;
+        } else {
+            $color = $this->allocateColor($color);
+        }
 
         imagefill($this->_resource, $positionX, $positionY, $color);
 

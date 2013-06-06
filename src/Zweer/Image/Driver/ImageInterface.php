@@ -133,9 +133,9 @@ interface ImageInterface
      *
      * @see allocateColor()
      *
-     * @param array|string $color
-     * @param int          $positionX
-     * @param int          $positionY
+     * @param array|string|resource|ImageInterface $color
+     * @param int                                  $positionX
+     * @param int                                  $positionY
      *
      * @return ImageInterface
      */
