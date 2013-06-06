@@ -2,7 +2,7 @@
 
 namespace Zweer\Image\Driver;
 
-interface ManipulateInterface
+interface ManipulateInterface extends EngineInterface
 {
     /**
      * The contructor

@@ -4,24 +4,8 @@ namespace Zweer\Image\Driver;
 
 use Zweer\Image\Image as ImageWrapper;
 
-abstract class ManipulateAbstract implements ManipulateInterface
+abstract class ManipulateAbstract extends EngineAbstract implements ManipulateInterface
 {
-    /**
-     * @var ImageInterface
-     */
-    protected $_image;
-
-    /**
-     * The contructor
-     * It only stores the $image argument.
-     *
-     * @param ImageInterface $image
-     */
-    public function __construct(ImageInterface $image)
-    {
-        $this->_image = $image;
-    }
-
     /**
      * Returns the string representation of the image
      *
