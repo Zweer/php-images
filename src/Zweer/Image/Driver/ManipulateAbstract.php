@@ -368,7 +368,7 @@ abstract class ManipulateAbstract implements ManipulateInterface
      * @param int $positionY
      *
      * @throws \Exception
-     * @return mixed
+     * @return ManipulateInterface
      */
     public function crop($width, $height = null, $positionX = null, $positionY = null)
     {
@@ -385,9 +385,50 @@ abstract class ManipulateAbstract implements ManipulateInterface
         }
 
         if (is_null($width) || is_null($height)) {
-            throw new \Exception('The crop area must have defined $width and $height');
+            throw new \InvalidArgumentException('The crop area must have $width and $height defined');
         }
 
         return $this->_modify(0, 0, $positionX , $positionY, $width, $height, $width, $height);
+    }
+
+    /**
+     * Cut out a detail of the image in given ratio and resize to output size
+     *
+     * @param int $width
+     * @param int $height
+     *
+     * @throws \InvalidArgumentException
+     * @return ManipulateInterface
+     */
+    public function grab($width = null, $height = null)
+    {
+        // Validates the current arguments
+        $width = is_numeric($width) ? intval($width) : null;
+        $height = is_numeric($height) ? intval($height) : null;
+
+        if (isset($width) or isset($height)) {
+            $width = isset($width) ? $width : $height;
+            $height = isset($height) ? $height : $width;
+        } else {
+            throw new \InvalidArgumentException('The grab area must have $width and $height defined');
+        }
+
+        $grabWidth = $w = $this->_image->getWidth();
+        $h = $this->_image->getHeight();
+        $ratio = $grabWidth / $width;
+
+        if ($height * $ratio <= $h) {
+            $grabHeight = round($height * $ratio);
+            $sourceX = 0;
+            $sourceY = round(($h - $grabHeight) / 2);
+        } else {
+            $grabHeight = $h;
+            $ratio = $grabHeight / $height;
+            $grabWidth = round($width * $ratio);
+            $sourceX = round(($w - $grabWidth) / 2);
+            $sourceY = 0;
+        }
+
+        return $this->_modify(0, 0, $sourceX, $sourceY, $width, $height, $grabWidth, $grabHeight);
     }
 }

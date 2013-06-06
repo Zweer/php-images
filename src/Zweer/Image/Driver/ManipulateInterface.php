@@ -63,7 +63,18 @@ interface ManipulateInterface
      * @param int $positionY
      *
      * @throws \Exception
-     * @return mixed
+     * @return ManipulateInterface
      */
     public function crop($width, $height = null, $positionX = null, $positionY = null);
+
+    /**
+     * Cut out a detail of the image in given ratio and resize to output size
+     *
+     * @param int $width
+     * @param int $height
+     *
+     * @throws \InvalidArgumentException
+     * @return ManipulateInterface
+     */
+    public function grab($width = null, $height = null);
 }
