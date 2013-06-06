@@ -27,4 +27,23 @@ class Draw extends DrawAbstract
 
         return $this;
     }
+
+    /**
+     * Draws a line
+     * It starts at ($x1, $y1) and ends at ($x2, $y2)
+     *
+     * @param string|array $color
+     * @param int          $x1
+     * @param int          $y1
+     * @param int          $x2
+     * @param int          $y2
+     *
+     * @return DrawInterface
+     */
+    public function line($color, $x1 = 0, $y1 = 0, $x2 = 10, $y2 = 10)
+    {
+        imageline($this->_image->getResource(), $x1, $y1, $x2, $y2, $this->_image->allocateColor($color));
+
+        return $this;
+    }
 }
