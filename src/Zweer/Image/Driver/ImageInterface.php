@@ -186,7 +186,7 @@ interface ImageInterface
 
     /**
      * Copies an $image into the current image
-     * If $sourceWidth and $sourceHeight aren't specified, it takes $destinationWidth and $destinationHeight
+     * If $sourceWidth and $sourceHeight aren't specified, it takes $image dimensions
      *
      * @param ImageInterface|resource $image
      * @param int                     $destinationX
