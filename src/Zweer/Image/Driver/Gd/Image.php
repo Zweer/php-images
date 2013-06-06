@@ -326,7 +326,7 @@ class Image extends ImageAbstract
             throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($image));
         }
 
-        imagecopyresampled($this->_resource, $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth ?: $destinationWidth, $sourceHeight ?: $destinationHeight);
+        imagecopyresampled($this->_resource, $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth ?: imagesx($image), $sourceHeight ?: imagesy($image));
 
         return $this;
     }
