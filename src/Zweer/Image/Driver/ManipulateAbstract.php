@@ -403,6 +403,7 @@ abstract class ManipulateAbstract implements ManipulateInterface
 
     /**
      * Cut out a detail of the image in given ratio and resize to output size
+     * If the $height is null, the area to grab is squared.
      *
      * @param int $width
      * @param int $height
@@ -410,18 +411,11 @@ abstract class ManipulateAbstract implements ManipulateInterface
      * @throws \InvalidArgumentException
      * @return ManipulateInterface
      */
-    public function grab($width = null, $height = null)
+    public function grab($width, $height = null)
     {
         // Validates the current arguments
         $width = is_numeric($width) ? intval($width) : null;
-        $height = is_numeric($height) ? intval($height) : null;
-
-        if (isset($width) or isset($height)) {
-            $width = isset($width) ? $width : $height;
-            $height = isset($height) ? $height : $width;
-        } else {
-            throw new \InvalidArgumentException('The grab area must have $width and $height defined');
-        }
+        $height = is_numeric($height) ? intval($height) : $width;
 
         $grabWidth = $w = $this->_image->getWidth();
         $h = $this->_image->getHeight();

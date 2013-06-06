@@ -76,6 +76,7 @@ interface ManipulateInterface
 
     /**
      * Cut out a detail of the image in given ratio and resize to output size
+     * If the $height is null, the area to grab is squared.
      *
      * @param int $width
      * @param int $height
@@ -83,5 +84,5 @@ interface ManipulateInterface
      * @throws \InvalidArgumentException
      * @return ManipulateInterface
      */
-    public function grab($width = null, $height = null);
+    public function grab($width, $height = null);
 }
