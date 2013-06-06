@@ -260,6 +260,23 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Sets the $color of a single pixel
+     * The pixel's position is ($positionX, $positionY)
+     *
+     * @param string $color
+     * @param int    $positionX
+     * @param int    $positionY
+     *
+     * @return ImageInterface
+     */
+    public function pixel($color = 'f000', $positionX = 0, $positionY = 0)
+    {
+        imagesetpixel($this->_resource, $positionX, $positionY, $this->allocateColor($color));
+
+        return $this;
+    }
+
+    /**
      * Retrieves the width of the image
      *
      * @return int

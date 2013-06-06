@@ -142,6 +142,18 @@ interface ImageInterface
     public function fill($color = 'f000', $positionX = 0, $positionY = 0);
 
     /**
+     * Sets the $color of a single pixel
+     * The pixel's position is ($positionX, $positionY)
+     *
+     * @param string $color
+     * @param int    $positionX
+     * @param int    $positionY
+     *
+     * @return ImageInterface
+     */
+    public function pixel($color = 'f000', $positionX = 0, $positionY = 0);
+
+    /**
      * Retrieves the width of the image
      *
      * @return int
