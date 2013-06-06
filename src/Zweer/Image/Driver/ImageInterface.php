@@ -243,6 +243,13 @@ interface ImageInterface
     public function manipulate();
 
     /**
+     * Retrieves the effect engine
+     *
+     * @return EffectInterface
+     */
+    public function effect();
+
+    /**
      * Parses the alpha
      * Parses the alpha and converts it into a valid value for the libraries.
      * Normally it converts [0-1] into [0-127].

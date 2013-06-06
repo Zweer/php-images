@@ -5,6 +5,7 @@ namespace Zweer\Image\Driver\Gd;
 use Zweer\Image\Driver\ImageAbstract;
 use Zweer\Image\Driver\ImageInterface;
 use Zweer\Image\Driver\ManipulateInterface;
+use Zweer\Image\Driver\EffectInterface;
 
 class Image extends ImageAbstract
 {
@@ -299,6 +300,20 @@ class Image extends ImageAbstract
         }
 
         return $this->_manipulate;
+    }
+
+    /**
+     * Retrieves the effect engine
+     *
+     * @return EffectInterface
+     */
+    public function effect()
+    {
+        if (!isset($this->_effect)) {
+            $this->_effect = new Effect($this);
+        }
+
+        return $this->_effect;
     }
 
     /**
