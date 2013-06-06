@@ -2,8 +2,7 @@
 
 namespace Zweer\Image\Driver;
 
-
-interface EffectInterface
+interface EffectInterface extends EngineInterface
 {
 
 }
