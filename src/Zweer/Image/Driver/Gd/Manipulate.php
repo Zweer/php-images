@@ -32,4 +32,20 @@ class Manipulate extends ManipulateAbstract
 
         return $this;
     }
+
+    /**
+     * Rotates the image of $angle degrees
+     *
+     * @param int          $angle
+     * @param string|array $bgColor
+     * @param bool         $ignoreTransparent
+     *
+     * @return ManipulateInterface
+     */
+    public function rotate($angle, $bgColor = 'ffff', $ignoreTransparent = false)
+    {
+        $this->_image->setResource(imagerotate($this->_image->getResource(), $angle, $this->_image->allocateColor($bgColor), $ignoreTransparent ? 1 : 0));
+
+        return $this;
+    }
 }

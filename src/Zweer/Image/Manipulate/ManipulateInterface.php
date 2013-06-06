@@ -71,4 +71,15 @@ interface ManipulateInterface extends EngineInterface
      * @return ManipulateInterface
      */
     public function grab($width, $height = null);
+
+    /**
+     * Rotates the image of $angle degrees
+     *
+     * @param int          $angle
+     * @param string|array $bgColor
+     * @param bool         $ignoreTransparent
+     *
+     * @return ManipulateInterface
+     */
+    public function rotate($angle, $bgColor = 'ffff', $ignoreTransparent = false);
 }
