@@ -186,6 +186,7 @@ interface ImageInterface
 
     /**
      * Copies an $image into the current image
+     * If $sourceWidth and $sourceHeight aren't specified, it takes $destinationWidth and $destinationHeight
      *
      * @param ImageInterface|resource $image
      * @param int                     $destinationX
@@ -200,7 +201,7 @@ interface ImageInterface
      * @throws \InvalidArgumentException
      * @return ImageInterface
      */
-    public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+    public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth = null, $sourceHeight = null);
 
     /**
      * Copies the current image into $image and than replace it

@@ -303,6 +303,7 @@ class Image extends ImageAbstract
 
     /**
      * Copies an $image into the current image
+     * If $sourceWidth and $sourceHeight aren't specified, it takes $destinationWidth and $destinationHeight
      *
      * @param ImageInterface|resource $image
      * @param int                     $destinationX
@@ -317,7 +318,7 @@ class Image extends ImageAbstract
      * @throws \InvalidArgumentException
      * @return ImageInterface
      */
-    public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight)
+    public function copy($image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth = null, $sourceHeight = null)
     {
         if ($image instanceof ImageInterface) {
             $image = $image->getResource();
@@ -325,7 +326,7 @@ class Image extends ImageAbstract
             throw new \InvalidArgumentException('The $resource provided is not a valid one: ' . var_dump($image));
         }
 
-        imagecopyresampled($this->_resource, $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight);
+        imagecopyresampled($this->_resource, $image, $destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth ?: $destinationWidth, $sourceHeight ?: $destinationHeight);
 
         return $this;
     }
