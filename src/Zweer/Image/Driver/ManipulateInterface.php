@@ -13,6 +13,13 @@ interface ManipulateInterface
     public function __construct(ImageInterface $image);
 
     /**
+     * Returns the string representation of the image
+     *
+     * @return string
+     */
+    public function __toString();
+
+    /**
      * Flips the image horizontally (default) or vertically
      *
      * @param string $mode
