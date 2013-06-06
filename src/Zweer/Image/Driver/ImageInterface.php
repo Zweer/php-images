@@ -134,10 +134,12 @@ interface ImageInterface
      * @see allocateColor()
      *
      * @param array|string $color
+     * @param int          $positionX
+     * @param int          $positionY
      *
      * @return ImageInterface
      */
-    public function fill($color = 'f000');
+    public function fill($color = 'f000', $positionX = 0, $positionY = 0);
 
     /**
      * Retrieves the width of the image

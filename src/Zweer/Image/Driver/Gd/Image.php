@@ -236,14 +236,16 @@ class Image extends ImageAbstract
      * @see allocateColor()
      *
      * @param array|string $color
+     * @param int          $positionX
+     * @param int          $positionY
      *
      * @return ImageInterface
      */
-    public function fill($color = 'f000')
+    public function fill($color = 'f000', $positionX = 0, $positionY = 0)
     {
         $color = $this->allocateColor($color);
 
-        imagefill($this->_resource, 0, 0, $color);
+        imagefill($this->_resource, $positionX, $positionY, $color);
 
         return $this;
     }
