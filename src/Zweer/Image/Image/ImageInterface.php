@@ -257,6 +257,16 @@ interface ImageInterface
     public function mask($image, $maskWidthAlpha = false);
 
     /**
+     * Sets the opacity of the image
+     * $transparency should be between 0 and 100
+     *
+     * @param int $transparency
+     *
+     * @return ImageInterface
+     */
+    public function opacity($transparency);
+
+    /**
      * Copies the current image into $image and than replace it
      *
      * @param ImageInterface $image

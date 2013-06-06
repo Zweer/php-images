@@ -2,6 +2,7 @@
 
 namespace Zweer\Image\Image;
 
+use Zweer\Image\Effect\EffectAbstract;
 use Zweer\Image\Manipulate\ManipulateInterface;
 use Zweer\Image\Effect\EffectInterface;
 use Zweer\Image\Draw\DrawInterface;
@@ -360,6 +361,24 @@ abstract class ImageAbstract implements ImageInterface
         $this->_resource = $maskedImage->getResource();
 
         return $this;
+    }
+
+    /**
+     * Sets the opacity of the image
+     * $transparency should be between 0 and 100
+     *
+     * @param int $transparency
+     *
+     * @return ImageInterface
+     */
+    public function opacity($transparency)
+    {
+        $transparency = EffectAbstract::parseLevel($transparency, .01, 0);
+
+        $alpha = new static(null, $this->getWidth(), $this->getHeight());
+        $alpha->fill(sprintf('rgba(0, 0, 0, %.1f)', $transparency));
+
+        return $this->mask($alpha, true);
     }
 
     /**
