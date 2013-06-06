@@ -37,7 +37,7 @@ interface DrawInterface extends EngineInterface
 
     /**
      * Draws an ellipse
-     * It starts at ($x1, $y1) and ends at ($x2, $y2)
+     * It starts at ($x1, $y1), $width x $height
      *
      * @param string|array $color
      * @param int          $x1
@@ -49,4 +49,18 @@ interface DrawInterface extends EngineInterface
      * @return DrawInterface
      */
     public function ellipse($color, $x1 = 0, $y1 = 0, $width = 10, $height = 10, $filled = true);
+
+    /**
+     * Draws a circle
+     * It starts at ($x1, $y1) with $radius
+     *
+     * @param string|array $color
+     * @param int          $x1
+     * @param int          $y1
+     * @param int          $radius
+     * @param bool         $filled
+     *
+     * @return DrawInterface
+     */
+    public function circle($color, $x1 = 0, $y1 = 0, $radius = 5, $filled = true);
 }
