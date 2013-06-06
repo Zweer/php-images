@@ -408,7 +408,6 @@ abstract class ManipulateAbstract implements ManipulateInterface
      * @param int $width
      * @param int $height
      *
-     * @throws \InvalidArgumentException
      * @return ManipulateInterface
      */
     public function grab($width, $height = null)
