@@ -120,6 +120,17 @@ interface ImageInterface
     public function encode($format = null, $quality = null);
 
     /**
+     * Pick the color at ($x, $y)
+     *
+     * @param int    $x
+     * @param int    $y
+     * @param string $format
+     *
+     * @return string|int|array
+     */
+    public function pickColor($x, $y, $format = 'array');
+
+    /**
      * Allocates the $color in the current image
      *
      * @see parseColor()

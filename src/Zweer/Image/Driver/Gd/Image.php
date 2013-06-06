@@ -216,6 +216,56 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Pick the color at ($x, $y)
+     *
+     * @param int    $x
+     * @param int    $y
+     * @param string $format
+     *
+     * @throws \InvalidArgumentException
+     * @return string|int|array
+     */
+    public function pickColor($x, $y, $format = 'array')
+    {
+        $color = imagecolorat($this->_resource, $x, $y);
+
+        switch ($format) {
+            case 'rgb':
+                return sprintf('rgb(%d, %d, %d)', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
+                break;
+
+            case 'rgba':
+                return sprintf('rgba(%d, %d, %d, %d)', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF, ($color >> 24) & 0xFF);
+                break;
+
+            case 'hex':
+                return sprintf('#%02x%02x%02x', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
+                break;
+
+            case 'hexa':
+                return sprintf('#%02x%02x%02x%02x', static::parseAlpha(($color >> 24) & 0xFF, true), ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
+                break;
+
+            case 'int':
+            case 'integer':
+                return $color;
+                break;
+
+            case 'array':
+                return array(
+                    ($color >> 16) & 0xFF,
+                    ($color >> 8) & 0xFF,
+                    $color & 0xFF,
+                    ($color >> 24) & 0xFF
+                );
+                break;
+
+            default:
+                throw new \InvalidArgumentException('The given $format is invalid: ' . $format);
+        }
+    }
+
+    /**
      * Allocates the $color in the current image
      *
      * @param array|string $color
