@@ -3,7 +3,7 @@
 namespace Zweer\Image\Driver;
 
 
-class EffectInterface
+interface EffectInterface
 {
 
 }
