@@ -67,4 +67,28 @@ class Draw extends DrawAbstract
 
         return $this;
     }
+
+    /**
+     * Writes text in the current image
+     *
+     * @param string       $text
+     * @param int          $positionX
+     * @param int          $positionY
+     * @param int          $size
+     * @param string|array $color
+     * @param int          $angle
+     * @param string       $fontfile
+     *
+     * @return DrawInterface
+     */
+    public function text($text, $positionX = 0, $positionY = 0, $size = 16, $color = '000', $angle = 0, $fontfile = null)
+    {
+        if (isset($fontfile)) {
+            imagettftext($this->_image->getResource(), $size, $angle, $positionX, $positionY, $this->_image->allocateColor($color), $fontfile, $text);
+        } else {
+            imagestring($this->_image->getResource(), $size, $positionX, $positionY, $text, $this->_image->allocateColor($color));
+        }
+
+        return $this;
+    }
 }

@@ -63,4 +63,19 @@ interface DrawInterface extends EngineInterface
      * @return DrawInterface
      */
     public function circle($color, $x1 = 0, $y1 = 0, $radius = 5, $filled = true);
+
+    /**
+     * Writes text in the current image
+     *
+     * @param string       $text
+     * @param int          $positionX
+     * @param int          $positionY
+     * @param int          $size
+     * @param string|array $color
+     * @param int          $angle
+     * @param string       $fontfile
+     *
+     * @return DrawInterface
+     */
+    public function text($text, $positionX = 0, $positionY = 0, $size = 16, $color = '000', $angle = 0, $fontfile = null);
 }
