@@ -2,8 +2,8 @@
 
 namespace Zweer\Image\Driver\Gd;
 
-use Zweer\Image\Driver\ManipulateAbstract;
-use Zweer\Image\Driver\ManipulateInterface;
+use Zweer\Image\Manipulate\ManipulateAbstract;
+use Zweer\Image\Manipulate\ManipulateInterface;
 use Zweer\Image\Image as ImageWrapper;
 
 class Manipulate extends ManipulateAbstract

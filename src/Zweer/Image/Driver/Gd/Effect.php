@@ -2,7 +2,7 @@
 
 namespace Zweer\Image\Driver\Gd;
 
-use Zweer\Image\Driver\EffectAbstract;
+use Zweer\Image\Effect\EffectAbstract;
 
 class Effect extends EffectAbstract
 {

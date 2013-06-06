@@ -2,10 +2,10 @@
 
 namespace Zweer\Image\Driver\Gd;
 
-use Zweer\Image\Driver\ImageAbstract;
-use Zweer\Image\Driver\ImageInterface;
-use Zweer\Image\Driver\ManipulateInterface;
-use Zweer\Image\Driver\EffectInterface;
+use Zweer\Image\Image\ImageAbstract;
+use Zweer\Image\Image\ImageInterface;
+use Zweer\Image\Manipulate\ManipulateInterface;
+use Zweer\Image\Effect\EffectInterface;
 
 class Image extends ImageAbstract
 {

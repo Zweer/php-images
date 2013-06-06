@@ -1,6 +1,8 @@
 <?php
 
-namespace Zweer\Image\Driver;
+namespace Zweer\Image\Manipulate;
+
+use Zweer\Image\Engine\EngineInterface;
 
 interface ManipulateInterface extends EngineInterface
 {

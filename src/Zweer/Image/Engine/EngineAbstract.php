@@ -1,6 +1,8 @@
 <?php
 
-namespace Zweer\Image\Driver;
+namespace Zweer\Image\Engine;
+
+use Zweer\Image\Image\ImageInterface;
 
 abstract class EngineAbstract implements EngineInterface
 {

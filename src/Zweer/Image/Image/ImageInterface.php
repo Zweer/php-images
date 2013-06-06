@@ -1,6 +1,9 @@
 <?php
 
-namespace Zweer\Image\Driver;
+namespace Zweer\Image\Image;
+
+use Zweer\Image\Manipulate\ManipulateInterface;
+use Zweer\Image\Effect\EffectInterface;
 
 interface ImageInterface
 {

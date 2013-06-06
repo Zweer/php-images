@@ -1,7 +1,8 @@
 <?php
 
-namespace Zweer\Image\Driver;
+namespace Zweer\Image\Manipulate;
 
+use Zweer\Image\Engine\EngineAbstract;
 use Zweer\Image\Image as ImageWrapper;
 
 abstract class ManipulateAbstract extends EngineAbstract implements ManipulateInterface

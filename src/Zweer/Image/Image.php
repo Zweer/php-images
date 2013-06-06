@@ -2,7 +2,7 @@
 
 namespace Zweer\Image;
 
-use Zweer\Image\Driver\ImageInterface;
+use Zweer\Image\Image\ImageInterface;
 
 class Image
 {
