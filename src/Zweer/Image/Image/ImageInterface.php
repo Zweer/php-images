@@ -247,6 +247,16 @@ interface ImageInterface
     public function insert($image, $positionX = 0, $positionY = 0, $anchor = 'top left');
 
     /**
+     * Apply given image to the current image as an alpha mask
+     *
+     * @param ImageInterface|resource $image
+     * @param bool                    $maskWidthAlpha
+     *
+     * @return ImageInterface
+     */
+    public function mask($image, $maskWidthAlpha = false);
+
+    /**
      * Copies the current image into $image and than replace it
      *
      * @param ImageInterface $image

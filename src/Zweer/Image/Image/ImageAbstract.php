@@ -317,6 +317,52 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Apply given image to the current image as an alpha mask
+     *
+     * @param ImageInterface|resource $image
+     * @param bool                    $maskWidthAlpha
+     *
+     * @return ImageInterface
+     */
+    public function mask($image, $maskWidthAlpha = false)
+    {
+        $maskedImage = new static(null, $this->getWidth(), $this->getHeight());
+        $mask = $image instanceof ImageInterface ? $image : new static($image);
+
+        $w = $this->getWidth();
+        $h = $this->getHeight();
+
+        if ($mask->getWidth() != $w or $mask->getHeight() != $h) {
+            $mask->manipulate()->resize($w, $h);
+        }
+
+        for ($x = 0; $x < $w; ++$x) {
+            for ($y = 0; $y < $h; ++$y) {
+                $color = $this->pickColor($x, $y);
+                $alpha = $mask->pickColor($x, $y);
+
+                if ($maskWidthAlpha) {
+                    $alpha = $alpha[3];
+                } else {
+                    // Use red channel as mask
+                    $alpha = floatval(round($alpha[0] / 255, 2));
+                }
+
+                if ($color[3] < $alpha) {
+                    // Preserve original alpha
+                    $alpha = $color[3];
+                }
+
+                $maskedImage->pixel(array($color[0], $color[1], $color[2], $alpha), $x, $y);
+            }
+        }
+
+        $this->_resource = $maskedImage->getResource();
+
+        return $this;
+    }
+
+    /**
      * Copies the current image into $image and than replace it
      *
      * @param ImageInterface $image
