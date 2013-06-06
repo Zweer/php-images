@@ -4,6 +4,7 @@ namespace Zweer\Image\Image;
 
 use Zweer\Image\Manipulate\ManipulateInterface;
 use Zweer\Image\Effect\EffectInterface;
+use Zweer\Image\Draw\DrawInterface;
 
 interface ImageInterface
 {
@@ -265,6 +266,13 @@ interface ImageInterface
      * @return EffectInterface
      */
     public function effect();
+
+    /**
+     * Retrieves the draw engine
+     *
+     * @return DrawInterface
+     */
+    public function draw();
 
     /**
      * Parses the alpha

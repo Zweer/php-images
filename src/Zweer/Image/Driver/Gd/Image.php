@@ -6,6 +6,7 @@ use Zweer\Image\Image\ImageAbstract;
 use Zweer\Image\Image\ImageInterface;
 use Zweer\Image\Manipulate\ManipulateInterface;
 use Zweer\Image\Effect\EffectInterface;
+use Zweer\Image\Draw\DrawInterface;
 
 class Image extends ImageAbstract
 {
@@ -342,6 +343,20 @@ class Image extends ImageAbstract
         }
 
         return $this->_effect;
+    }
+
+    /**
+     * Retrieves the draw engine
+     *
+     * @return DrawInterface
+     */
+    public function draw()
+    {
+        if (!isset($this->_draw)) {
+            $this->_draw = new Draw($this);
+        }
+
+        return $this->_draw;
     }
 
     /**

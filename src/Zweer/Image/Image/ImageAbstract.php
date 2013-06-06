@@ -4,6 +4,7 @@ namespace Zweer\Image\Image;
 
 use Zweer\Image\Manipulate\ManipulateInterface;
 use Zweer\Image\Effect\EffectInterface;
+use Zweer\Image\Draw\DrawInterface;
 use Zweer\Image\Image;
 
 abstract class ImageAbstract implements ImageInterface
@@ -32,6 +33,11 @@ abstract class ImageAbstract implements ImageInterface
      * @var EffectInterface
      */
     protected $_effect;
+
+    /**
+     * @var DrawInterface
+     */
+    protected $_draw;
 
     /**
      * The constructor
