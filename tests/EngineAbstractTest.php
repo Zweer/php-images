@@ -2,7 +2,7 @@
 
 use Zweer\Image\Image;
 
-class EffectAbstractTest extends PHPUnit_Framework_TestCase
+class EngineAbstractTest extends PHPUnit_Framework_TestCase
 {
     public function testManipulate()
     {
