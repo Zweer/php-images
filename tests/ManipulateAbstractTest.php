@@ -8,7 +8,7 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
     {
         $img = Image::create(2);
 
-        $this->assertInstanceOf('\\Zweer\\Image\\Driver\\ManipulateAbstract', $img->manipulate());
+        $this->assertInstanceOf('\\Zweer\\Image\\Manipulate\\ManipulateAbstract', $img->manipulate());
     }
 
     public function testFlip()

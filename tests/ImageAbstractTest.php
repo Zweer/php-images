@@ -1,7 +1,7 @@
 <?php
 
 use Zweer\Image\Image;
-use Zweer\Image\Driver\ImageAbstract;
+use Zweer\Image\Image\ImageAbstract;
 
 class ImageAbstractTest extends PHPUnit_Framework_TestCase
 {
