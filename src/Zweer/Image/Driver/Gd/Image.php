@@ -266,6 +266,28 @@ class Image extends ImageAbstract
     }
 
     /**
+     * Sets the $index color
+     *
+     * @param int $index
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     * @param int $alpha
+     *
+     * @return ImageInterface
+     */
+    public function setColor($index, $red, $green, $blue, $alpha = 0)
+    {
+        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+            imagecolorset($this->_resource, $index, $red, $green, $blue, $alpha);
+        } else {
+            imagecolorset($this->_resource, $index, $red, $green, $blue);
+        }
+
+        return $this;
+    }
+
+    /**
      * Fills the image with $color
      * Before filling, it allocates the color.
      * If no argument is provided, it fills with a transparent color.

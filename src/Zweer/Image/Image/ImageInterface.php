@@ -152,6 +152,19 @@ interface ImageInterface
     public function allocateColor($color);
 
     /**
+     * Sets the $index color
+     *
+     * @param int $index
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     * @param int $alpha
+     *
+     * @return ImageInterface
+     */
+    public function setColor($index, $red, $green, $blue, $alpha = 0);
+
+    /**
      * Fills the image with $color
      * Before filling, it allocates the color.
      * If no argument is provided, it fills with a transparent color.
