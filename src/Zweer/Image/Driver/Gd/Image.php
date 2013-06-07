@@ -233,6 +233,7 @@ class Image extends ImageAbstract
     /**
      * Retrieves all the colors of the image
      * If $format is null, it returns the integer representation
+     * Doesn't work for 24bit images!!!
      *
      * @param string $format
      *
