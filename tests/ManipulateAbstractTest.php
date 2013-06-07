@@ -140,10 +140,94 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
     {
         $width = 20;
 
-        $img = Image::create($width, null, '000');
-        $img->manipulate()->canvas($width + 1, null, 'top left', 'fff');
+        $black = '#000000';
+        $white = '#ffffff';
 
-        $this->assertEquals('#ffffff', strtolower($img->pickColor($width + 1, 0, 'hex')));
+        // Top Left
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 1, 'top left', $white);
+
+        $this->assertEquals($black, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor(0, $width / 2, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width, 'hex')));
+
+        // Top Center
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 2, $width + 1, 'top center', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width + 1, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width / 2, $width, 'hex')));
+
+        // Top Right
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 1, 'top right', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width, $width / 2, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width, $width, 'hex')));
+
+        // Middle Left
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 2, 'middle left', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor(0, $width / 2, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width + 1, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width, $width / 2, 'hex')));
+
+        // Middle Center
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 2, $width + 2, 'middle center', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width + 1, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width + 1, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width + 1, $width + 1, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor(1, 1, 'hex')));
+
+        // Middle Right
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 2, 'middle right', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor($width, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width, $width / 2, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width, $width + 1, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width / 2, 'hex')));
+
+        // Bottom Left
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 1, 'bottom left', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor(0, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor(0, $width / 2, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor(0, $width, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, $width, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width, $width, 'hex')));
+
+        // Bottom Center
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 2, $width + 1, 'bottom center', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor($width / 2, 0, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, $width, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor($width + 1, $width, 'hex')));
+
+        // Bottom Right
+        $img = Image::create($width, $width, $black);
+        $img->manipulate()->canvas($width + 1, $width + 1, 'bottom right', $white);
+
+        $this->assertEquals($white, strtolower($img->pickColor($width, 0, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width, $width / 2, 'hex')));
+        $this->assertEquals($white, strtolower($img->pickColor(0, $width, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width / 2, $width, 'hex')));
+        $this->assertEquals($black, strtolower($img->pickColor($width, $width, 'hex')));
     }
 
     public function testCrop()
