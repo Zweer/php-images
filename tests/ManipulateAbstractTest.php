@@ -33,9 +33,6 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($color, $img->pickColor($width - $x - 1, $height - $y - 1, 'int'));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testResize()
     {
         $originalWidth = 20;
@@ -85,8 +82,15 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($resizeWidth, $img->getWidth());
         $this->assertEquals($resizeHeight, $img->getHeight());
+    }
 
-        // Throws an expected exception
+    /**
+     * @expectedException \Exception
+     */
+    public function testResizeException()
+    {
+        $img = Image::create(20, 20);
+
         $img->manipulate()->resize(null, null, false, false);
     }
 
@@ -248,5 +252,36 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($cropWidth, $img->getWidth());
         $this->assertEquals($cropWidth, $img->getHeight());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCropException()
+    {
+        $img = Image::create(20, 20);
+
+        $img->manipulate()->crop('o');
+    }
+
+    public function testGrab()
+    {
+        $originalWidth = 20;
+        $originalHeight = 30;
+
+        $resizeWidth = 10;
+        $resizeHeight = 18;
+
+        $img = Image::create($originalWidth, $originalHeight);
+        $img->manipulate()->grab($resizeWidth);
+
+        $this->assertEquals($resizeWidth, $img->getWidth());
+        $this->assertEquals($resizeWidth, $img->getHeight());
+
+        $img = Image::create($originalWidth, $originalHeight);
+        $img->manipulate()->grab($resizeWidth, $resizeHeight);
+
+        $this->assertEquals($resizeWidth, $img->getWidth());
+        $this->assertEquals($resizeHeight, $img->getHeight());
     }
 }
