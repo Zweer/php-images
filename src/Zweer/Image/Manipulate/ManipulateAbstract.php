@@ -42,7 +42,25 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
         }
     }
 
-    abstract protected function _modify($destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight, $bgColor = null);
+    /**
+     * Modify wrapper
+     * Used in many function such as resize and grab
+     *
+     * @param int          $destinationX              Destination X coord
+     * @param int          $destinationY              Destination Y coord
+     * @param int          $sourceX                   Source X coord
+     * @param int          $sourceY                   Source Y coord
+     * @param int          $destinationWidth          Destination width
+     * @param int          $destinationHeight         Destination height
+     * @param int          $sourceWidth               Source width
+     * @param int          $sourceHeight              Source height
+     * @param string|array $bgColor                   The color to use as the background
+     * @param int          $sourceWidthAtDestination
+     * @param int          $sourceHeightAtDestination
+     *
+     * @return ManipulateInterface
+     */
+    abstract protected function _modify($destinationX, $destinationY, $sourceX, $sourceY, $destinationWidth, $destinationHeight, $sourceWidth, $sourceHeight, $bgColor = null, $sourceWidthAtDestination = null, $sourceHeightAtDestination = null);
 
     /**
      * Flips the image horizontally (default) or vertically
@@ -255,22 +273,25 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
         $height = !isset($height) ? $h : intval($height);
 
         if ($width > $w) {
-            $src_w = $w;
+            $sourceWidth = $w;
         } else {
-            $src_w = $width;
+            $sourceWidth = $width;
         }
 
         if ($height > $h) {
-            $src_h = $h;
+            $sourceHeight = $h;
         } else {
-            $src_h = $height;
+            $sourceHeight = $height;
         }
 
         switch ($anchor) {
             case 'top left':
             case 'left top':
-                $src_x = 0;
-                $src_y = 0;
+                $sourceX = 0;
+                $sourceY = 0;
+
+                $destinationX = 0;
+                $destinationY = 0;
                 break;
 
             case 'top':
@@ -278,14 +299,20 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
             case 'center top':
             case 'top middle':
             case 'middle top':
-                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
-                $src_y = 0;
+                $sourceX = $width < $w ? intval(($w - $width) / 2) : 0;
+                $sourceY = 0;
+
+                $destinationX = $width > $w ? intval(($width - $w) / 2) : 0;
+                $destinationY = 0;
                 break;
 
             case 'top right':
             case 'right top':
-                $src_x = $width < $w ? intval($w - $width) : 0;
-                $src_y = 0;
+                $sourceX = $width < $w ? intval($w - $width) : 0;
+                $sourceY = 0;
+
+                $destinationX = $width > $w ? intval($width - $w) : 0;
+                $destinationY = 0;
                 break;
 
             case 'left':
@@ -293,38 +320,11 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
             case 'left middle':
             case 'center left':
             case 'middle left':
-                $src_x = 0;
-                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
-                break;
+                $sourceX = 0;
+                $sourceY = $height < $h ? intval(($h - $height) / 2) : 0;
 
-            case 'right':
-            case 'right center':
-            case 'right middle':
-            case 'center right':
-            case 'middle right':
-                $src_x = $width < $w ? intval($w - $width) : 0;
-                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
-                break;
-
-            case 'bottom left':
-            case 'left bottom':
-                $src_x = 0;
-                $src_y = $height < $h ? intval($h - $height) : 0;
-                break;
-
-            case 'bottom':
-            case 'bottom center':
-            case 'bottom middle':
-            case 'center bottom':
-            case 'middle bottom':
-                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
-                $src_y = $height < $h ? intval($h - $height) : 0;
-                break;
-
-            case 'bottom right':
-            case 'right bottom':
-                $src_x = $width < $w ? intval($w - $width) : 0;
-                $src_y = $height < $h ? intval($h - $height) : 0;
+                $destinationX = 0;
+                $destinationY = $height > $h ? intval(($height - $h) / 2) : 0;
                 break;
 
             default:
@@ -332,15 +332,69 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
             case 'middle':
             case 'center center':
             case 'middle middle':
-                $src_x = $width < $w ? intval(($w - $width) / 2) : 0;
-                $src_y = $height < $h ? intval(($h - $height) / 2) : 0;
+                $sourceX = $width < $w ? intval(($w - $width) / 2) : 0;
+                $sourceY = $height < $h ? intval(($h - $height) / 2) : 0;
+
+                $destinationX = $width > $w ? intval(($width - $w) / 2) : 0;
+                $destinationY = $height > $h ? intval(($height - $h) / 2) : 0;
+                break;
+
+            case 'right':
+            case 'right center':
+            case 'right middle':
+            case 'center right':
+            case 'middle right':
+                $sourceX = $width < $w ? intval($w - $width) : 0;
+                $sourceY = $height < $h ? intval(($h - $height) / 2) : 0;
+
+
+                $destinationX = $width > $w ? intval($width - $w) : 0;
+                $destinationY = $height > $h ? intval(($height - $h) / 2) : 0;
+                break;
+
+            case 'bottom left':
+            case 'left bottom':
+                $sourceX = 0;
+                $sourceY = $height < $h ? intval($h - $height) : 0;
+
+                $destinationX = 0;
+                $destinationY = $height - $h;
+                break;
+
+            case 'bottom':
+            case 'bottom center':
+            case 'bottom middle':
+            case 'center bottom':
+            case 'middle bottom':
+                $sourceX = $width < $w ? intval(($w - $width) / 2) : 0;
+                $sourceY = $height < $h ? intval($h - $height) : 0;
+
+                $destinationX = $width > $w ? intval(($width - $w) / 2) : 0;
+                $destinationY = $height - $h;
+                break;
+
+            case 'bottom right':
+            case 'right bottom':
+                $sourceX = $width < $w ? intval($w - $width) : 0;
+                $sourceY = $height < $h ? intval($h - $height) : 0;
+
+                $destinationX = $width > $w ? intval($width - $w) : 0;
+                $destinationY = $height - $h;
                 break;
         }
 
-        $dst_x = $width < $w ? 0 : intval(($width - $w) / 2);
-        $dst_y = $height < $h ? 0 : intval(($height - $h) / 2);
+        var_dump(array(
+            'dstX'=> $destinationX,
+            'dstY' => $destinationY,
+            'srcX' => $sourceX,
+            'srcY' => $sourceY,
+            'dstW' => $width,
+            'dstH' => $height,
+            'srcW' => $sourceWidth,
+            'srcH' => $sourceHeight,
+            'bgColor' => $bgColor));
 
-        return $this->_modify($dst_x, $dst_y, $src_x, $src_y, $width, $height, $src_w, $src_h, $bgColor);
+        return $this->_modify($destinationX, $destinationY, $sourceX, $sourceY, $width, $height, $sourceWidth, $sourceHeight, $bgColor, $sourceWidth, $sourceHeight);
     }
 
     /**

@@ -464,7 +464,7 @@ abstract class ImageAbstract implements ImageInterface
     {
         if ($hex) {
             $alpha += 0;
-            $range_input = range(0, 255, 255/127);
+            $range_input = range(255, 0, 255/127);
             $range_output = range(127, 0);
         } else {
             $range_input = range(1, 0, 1/127);
