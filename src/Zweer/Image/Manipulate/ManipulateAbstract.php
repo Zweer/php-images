@@ -383,17 +383,6 @@ abstract class ManipulateAbstract extends EngineAbstract implements ManipulateIn
                 break;
         }
 
-        var_dump(array(
-            'dstX'=> $destinationX,
-            'dstY' => $destinationY,
-            'srcX' => $sourceX,
-            'srcY' => $sourceY,
-            'dstW' => $width,
-            'dstH' => $height,
-            'srcW' => $sourceWidth,
-            'srcH' => $sourceHeight,
-            'bgColor' => $bgColor));
-
         return $this->_modify($destinationX, $destinationY, $sourceX, $sourceY, $width, $height, $sourceWidth, $sourceHeight, $bgColor, $sourceWidth, $sourceHeight);
     }
 
