@@ -131,6 +131,16 @@ interface ImageInterface
     public function pickColor($x, $y, $format = 'array');
 
     /**
+     * Retrieves all the colors of the image
+     * If $format is null, it returns the integer representation
+     *
+     * @param string $format
+     *
+     * @return string[]|int[]|array[]
+     */
+    public function pickColors($format = null);
+
+    /**
      * Allocates the $color in the current image
      *
      * @see parseColor()
@@ -335,6 +345,17 @@ interface ImageInterface
      * @throws \InvalidArgumentException
      */
     public static function parseColor($color);
+
+    /**
+     * Formats a color into a string or array
+     *
+     * @param int|array $color
+     * @param string    $format
+     *
+     * @return array|string
+     * @throws \InvalidArgumentException
+     */
+    public static function formatColor($color, $format = 'array');
 
     /**
      * Creates a blank image

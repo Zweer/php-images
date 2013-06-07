@@ -227,42 +227,28 @@ class Image extends ImageAbstract
      */
     public function pickColor($x, $y, $format = 'array')
     {
-        $color = imagecolorat($this->_resource, $x, $y);
+        return static::formatColor(imagecolorat($this->_resource, $x, $y), $format);
+    }
 
-        switch ($format) {
-            case 'rgb':
-                return sprintf('rgb(%d, %d, %d)', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
-                break;
+    /**
+     * Retrieves all the colors of the image
+     * If $format is null, it returns the integer representation
+     *
+     * @param string $format
+     *
+     * @return string[]|int[]|array[]
+     */
+    public function pickColors($format = null)
+    {
+        $colors = array();
+        $num = imagecolorstotal($this->_resource);
 
-            case 'rgba':
-                return sprintf('rgba(%d, %d, %d, %d)', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF, ($color >> 24) & 0xFF);
-                break;
-
-            case 'hex':
-                return sprintf('#%02x%02x%02x', ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
-                break;
-
-            case 'hexa':
-                return sprintf('#%02x%02x%02x%02x', static::parseAlpha(($color >> 24) & 0xFF, true), ($color >> 16) & 0xFF, ($color >> 8) & 0xFF, $color & 0xFF);
-                break;
-
-            case 'int':
-            case 'integer':
-                return $color;
-                break;
-
-            case 'array':
-                return array(
-                    ($color >> 16) & 0xFF,
-                    ($color >> 8) & 0xFF,
-                    $color & 0xFF,
-                    ($color >> 24) & 0xFF
-                );
-                break;
-
-            default:
-                throw new \InvalidArgumentException('The given $format is invalid: ' . $format);
+        for ($i = 0; $i < $num; ++$i) {
+            $color = imagecolorsforindex($this->_resource, $i);
+            $colors[] = isset($format) ? static::formatColor($color, $format) : $color;
         }
+
+        return $colors;
     }
 
     /**
@@ -451,6 +437,62 @@ class Image extends ImageAbstract
     public static function isImageResource($resource)
     {
         return parent::isImageResource($resource) and get_resource_type($resource) == 'gd';
+    }
+
+    /**
+     * Formats a color into a string or array
+     *
+     * @param int|array $color
+     * @param string    $format
+     *
+     * @return array|string
+     * @throws \InvalidArgumentException
+     */
+    public static function formatColor($color, $format = 'array')
+    {
+        if (is_int($color)) {
+            $color = array(
+                'red'   => ($color >> 16) & 0xFF,
+                'green' => ($color >> 8) & 0xFF,
+                'blue'  => $color & 0xFF,
+                'alpha' => ($color >> 24) & 0xFF,
+            );
+        }
+
+        switch ($format) {
+            case 'rgb':
+                return sprintf('rgb(%d, %d, %d)', $color['red'], $color['green'], $color['blue']);
+                break;
+
+            case 'rgba':
+                return sprintf('rgba(%d, %d, %d, %d)', $color['red'], $color['green'], $color['blue'], $color['alpha']);
+                break;
+
+            case 'hex':
+                return sprintf('#%02x%02x%02x', $color['red'], $color['green'], $color['blue']);
+                break;
+
+            case 'hexa':
+                return sprintf('#%02x%02x%02x%02x', static::parseAlpha($color['alpha'], true), $color['red'], $color['green'], $color['blue']);
+                break;
+
+            case 'int':
+            case 'integer':
+                return $color;
+                break;
+
+            case 'array':
+                return array(
+                    $color['red'],
+                    $color['green'],
+                    $color['blue'],
+                    $color['alpha']
+                );
+                break;
+
+            default:
+                throw new \InvalidArgumentException('The given $format is invalid: ' . $format);
+        }
     }
 
     /**
