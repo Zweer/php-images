@@ -33,6 +33,21 @@ class ManipulateAbstractTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($color, $img->pickColor($width - $x - 1, $height - $y - 1, 'int'));
     }
 
+    public function testRotate()
+    {
+        $file = __DIR__ . '/../examples/assets/ralph.jpg';
+        $x = 200;
+        $y = 300;
+
+        $img = Image::make($file);
+        $img->manipulate()->rotate(180);
+
+        $img2 = Image::make($file);
+        $img2->manipulate()->flip(IMAGE::FLIP_HORIZONTAL)->flip(Image::FLIP_VERTICAL);
+
+        $this->assertEquals($img2->pickColor($x, $y), $img->pickColor($x, $y));
+    }
+
     public function testResize()
     {
         $originalWidth = 20;
