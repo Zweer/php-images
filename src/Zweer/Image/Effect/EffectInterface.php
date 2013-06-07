@@ -9,14 +9,14 @@ interface EffectInterface extends EngineInterface
     /**
      * Applies the negate filter
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function invert();
 
     /**
      * Applies the grayscale filter
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function desaturate();
 
@@ -26,7 +26,7 @@ interface EffectInterface extends EngineInterface
      *
      * @param int $level
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function brightness($level);
 
@@ -36,7 +36,7 @@ interface EffectInterface extends EngineInterface
      *
      * @param int $level
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function contrast($level);
 
@@ -46,21 +46,21 @@ interface EffectInterface extends EngineInterface
      *
      * @param string|array $color
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function colorize($color);
 
     /**
      * Applies the edge detect filter
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function edges();
 
     /**
      * Applies the emboss filter
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function emboss();
 
@@ -70,14 +70,14 @@ interface EffectInterface extends EngineInterface
      * @param string $type   [selective|gaussian]
      * @param int    $passes
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function blur($type = 'selective', $passes = 1);
 
     /**
      * Applies the mean removal filter
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function sketch();
 
@@ -87,7 +87,7 @@ interface EffectInterface extends EngineInterface
      *
      * @param int $level
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function smooth($level);
 
@@ -97,11 +97,16 @@ interface EffectInterface extends EngineInterface
      * @param int  $blockSize
      * @param bool $advanced
      *
-     * @return EngineInterface
+     * @return EffectInterface
      */
     public function pixelate($blockSize = 10, $advanced = true);
 
-    //TODO: sepia
+    /**
+     * Applies the sepia filter
+     *
+     * @return EffectInterface
+     */
+    public function sepia();
 
     /**
      * Checks the $level to be between $min and $max
