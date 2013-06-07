@@ -13,12 +13,18 @@ abstract class EffectAbstract extends EngineAbstract implements EffectInterface
      */
     public function sepia()
     {
-        foreach ($this->_image->pickColors() as $index => $color) {
-            $red   = ($color['red'] * .393 + $color['green'] * .769 + $color['blue'] * .189) / 1.351;
-            $green = ($color['red'] * .349 + $color['green'] * .686 + $color['blue'] * .168) / 1.203;
-            $blue  = ($color['red'] * .272 + $color['green'] * .534 + $color['blue'] * .131) / 2.140;
+        $colors = $this->_image->pickColors();
 
-            $this->_image->setColor($index, $red, $green, $blue, $color['alpha']);
+        if (count($colors) > 0) {
+            foreach ($colors as $index => $color) {
+                $red   = ($color['red'] * .393 + $color['green'] * .769 + $color['blue'] * .189) / 1.351;
+                $green = ($color['red'] * .349 + $color['green'] * .686 + $color['blue'] * .168) / 1.203;
+                $blue  = ($color['red'] * .272 + $color['green'] * .534 + $color['blue'] * .131) / 2.140;
+
+                $this->_image->setColor($index, $red, $green, $blue, $color['alpha']);
+            }
+        } else {
+            $this->desaturate()->colorize(array(90, 60, 40));
         }
 
         return $this;
