@@ -21,7 +21,7 @@ class Effect extends EffectAbstract
      */
     protected function _filter($filter, $argument1 = null, $argument2 = null, $argument3 = null, $argument4 = null)
     {
-        imagefilter($this->_image->getResource(), $filter, $argument1, $argument2, $argument3, $argument4);
+        @imagefilter($this->_image->getResource(), $filter, $argument1, $argument2, $argument3, $argument4);
 
         return $this;
     }
