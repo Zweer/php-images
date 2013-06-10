@@ -24,7 +24,7 @@ abstract class EffectAbstract extends EngineAbstract implements EffectInterface
                 $this->_image->setColor($index, $red, $green, $blue, $color['alpha']);
             }
         } else {
-            $this->desaturate()->colorize(array(90, 60, 40));
+            $this->desaturate()->brightness(-12)->colorize(array(90, 55, 30));
         }
 
         return $this;
