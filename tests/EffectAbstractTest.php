@@ -14,4 +14,12 @@ class EffectAbstractTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Zweer\\Image\\Effect\\EffectAbstract', $img->effect()->sepia());
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testLevelException()
+    {
+        \Zweer\Image\Effect\EffectAbstract::parseLevel(120);
+    }
 }
