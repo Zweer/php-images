@@ -76,6 +76,7 @@ class Image extends ImageAbstract
 
         switch ($info[2]) {
             case IMG_PNG:
+            case 3:
                 $this->_resource = imagecreatefrompng($filename);
                 $this->_format = IMG_PNG;
                 break;
