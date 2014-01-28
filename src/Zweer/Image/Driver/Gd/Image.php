@@ -78,6 +78,9 @@ class Image extends ImageAbstract
             case IMG_PNG:
             case 3:
                 $this->_resource = imagecreatefrompng($filename);
+                imagealphablending($this->_resource, true);
+                imagesavealpha($this->_resource, true);
+
                 $this->_format = IMG_PNG;
                 break;
 
