@@ -627,6 +627,27 @@ abstract class ImageAbstract implements ImageInterface
     }
 
     /**
+     * Color parser
+     * Parses the color and returns and array with the reverse:
+     * [0]: red,
+     * [1]: green,
+     * [2]: blue,
+     * [3]: alpha
+     * All the values are between [0-255] except alpha that is library dependant
+     *
+     * @param array|string $color The color to parse
+     *
+     * @return array 0: red, 1: green, 2: blue, 3: alpha
+     * @throws \InvalidArgumentException
+     */
+    public static function invertColor($color)
+    {
+        $color = static::parseColor($color);
+
+        return array(255 - $color[0], 255 - $color[1], 255 - $color[2], $color[3]);
+    }
+
+    /**
      * Parses the dimensions into valid values
      * It returns an array with width and height.
      *
