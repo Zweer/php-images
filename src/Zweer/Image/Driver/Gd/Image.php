@@ -187,25 +187,19 @@ class Image extends ImageAbstract
 
         switch ($format) {
             case IMG_GIF:
-                if ($header) {
-                    header('Content-type: image/gif');
-                }
+                $format = 'image/gif';
 
                 imagegif($this->_resource);
                 break;
 
             case IMG_JPG:
-                if ($header) {
-                    header('Content-type: image/jpeg');
-                }
+                $format = 'image/jpeg';
 
                 imagejpeg($this->_resource, null, $quality);
                 break;
 
             case IMG_PNG:
-                if ($header) {
-                    header('Content-type: image/png');
-                }
+                $format = 'image/png';
 
                 // Transform the quality into the PNG dependant quality [0-9]
                 $quality = round($quality / 11.11111111);
@@ -216,7 +210,11 @@ class Image extends ImageAbstract
                 throw new \InvalidArgumentException('The format specified is not supported: ' . $format);
         }
 
-        return image_type_to_mime_type($format);
+        if ($header) {
+            header('Content-type: ' . $format);
+        }
+
+        return $format;
     }
 
     /**
